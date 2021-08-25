@@ -27,26 +27,18 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-// Area Chart Example
-var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
-  type: 'line',
+// Bar Chart Example
+var ctx = document.getElementById("myBarChart");
+var myBarChart = new Chart(ctx, {
+  type: 'bar',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Set", "Out", "Nov", "Dez"],
+    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
     datasets: [{
-      label: "Umidade",
-      lineTension: 0.3,
-      backgroundColor: "#FFFFFF",
-      borderColor: "#1cc88a",
-      pointRadius: 3,
-      pointBackgroundColor: "#1cc88a",
-      pointBorderColor: "#1cc88a",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.2, 0.15, 0.1, 0.05, 0.6, 0.3, 0.4, 0.8, 0.1, 0.25, 0.3],
+      label: "Chuva",
+      backgroundColor: "#4e73df",
+      hoverBackgroundColor: "#2e59d9",
+      borderColor: "#4e73df",
+      data: [50, 40, 25, 34, 22, 8, 2, 1, 5, 25, 35, 70],
     }],
   },
   options: {
@@ -62,24 +54,26 @@ var myLineChart = new Chart(ctx, {
     scales: {
       xAxes: [{
         time: {
-          unit: 'date'
+          unit: 'month'
         },
         gridLines: {
           display: false,
-          drawBorder: false
+          drawBorder: true
         },
         ticks: {
-          maxTicksLimit: 7
-        }
+          maxTicksLimit: 12
+        },
+        maxBarThickness: 25,
       }],
       yAxes: [{
         ticks: {
-          maxTicksLimit: 5,
+          min: 0,
+          max: 100,
+          maxTicksLimit: 10,
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            //return '±' + number_format(value);
-            return '±' + value;
+            return 'P ' + value;
           }
         },
         gridLines: {
@@ -95,26 +89,23 @@ var myLineChart = new Chart(ctx, {
       display: false
     },
     tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
       titleMarginBottom: 10,
       titleFontColor: '#6e707e',
       titleFontSize: 14,
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
       borderColor: '#dddfeb',
       borderWidth: 1,
       xPadding: 15,
       yPadding: 15,
       displayColors: false,
-      intersect: false,
-      mode: 'index',
       caretPadding: 10,
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          //return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-          return datasetLabel + ': ±' + (tooltipItem.yLabel);
+          return datasetLabel + 'P ' + (tooltipItem.yLabel);
         }
       }
-    }
+    },
   }
 });
