@@ -10,15 +10,12 @@ if(isset($_GET['i'])){
     $pagina = addslashes($_GET['i']); 
 }
 
-if(isset($_GET['login'])){
-  $login = addslashes($_GET['login']); 
-}
 
 
 
 /* Carrega a página escolhida pelo usuário */
 
-if($login){
+//if($login){
   /* Carrega o header.php */ 
   include 'app/views/template/header.php';  
 
@@ -42,7 +39,7 @@ if($login){
 
   /* Carrega o footer.php */ 
   include 'app/views/template/footer.php';  
-}else{
-  header('Location: app/views/pages/login.php');
-}
+//}else{
+  //header('Location: app/views/pages/login.php');
+//}
 

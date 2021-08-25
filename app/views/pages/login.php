@@ -35,7 +35,7 @@
                     <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Código de acesso...">
                 </div>
                                             
-                <a href="../../../?i=home/login=true" class="btn btn-primary btn-user btn-block">Entrar </a>
+                <a href="../../../?i=home&login=true" class="btn btn-primary btn-user btn-block">Entrar </a>
             </form>
         </div>
     </div>
