@@ -1,23 +1,24 @@
 <?php 
 
-if(isset($_GET['i'])){
-        $tipo = $_GET['i']; 
-}
-    
+if(isset($_GET['tp'])){
+        $tp = $_GET['tp']; 
+   
 $sensorC = new SensorController();
-$sensores = $sensorC->listar();
+//$sensores = $sensorC->listar();
 
 #$sensor = $sensorC->pesquisaId(1);
-#$sensores = $sensorC->listar_por_tipo($);
-
+$sensores = $sensorC->listar_por_tipo($tp);
+/*echo "<pre>";
+echo var_dump($sensores);
+echo "</pre>";*/
 ?>
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Umidade do Solo</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">    
+        <h1 class="h3 mb-0 text-gray-800 text-uppercase"><?php echo $sensores[0]->__get('tipo_sensor')->__get('tipo') ?></h1>
 </div>
 
 <table class="table table-striped">
-        <thead class='cabecalho-tabela'>
+        <thead <?php echo  "class='bg-".$sensores[0]->__get('tipo_sensor')->__get('color')." text-white'" ?>>
                 <tr>
                 <th scope='col'>SENSOR</th>
                 <th scope='col'>VALOR</th>
@@ -28,12 +29,11 @@ $sensores = $sensorC->listar();
                 <tr>
                         <?php
                         foreach($sensores as $id => $sensor){
-                                if($sensor->__get('tipo_sensor')->__get('id') == 1){
-                                 echo "<tr>";
-                                 echo "<td>".$sensor->__get('descricao')."</td>";
-                                 echo "<td>".$sensor->__get('valor')."</td>";
-                                 echo "<td> 02/02/2022 15h20</td></tr>";
-                                }
+        
+                        echo "<tr>";
+                        echo "<td>".$sensor->__get('descricao')."</td>";
+                        echo "<td>".$sensor->__get('valor')."</td>";
+                        echo "<td>".$sensor->__get('dt_hr')."</td></tr>";
                                
                         }
                         ?>
@@ -41,7 +41,17 @@ $sensores = $sensorC->listar();
         </tbody>
 </table>
 
-     
+
+<?php
+//echo "<a href='?i=exporta&tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
+echo "<a href='../xls.php?tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
+
+}
+else{
+        echo '<div class="d-sm-flex align-items-center justify-content-between mb-4"> <h1 class="h3 mb-0 text-gray-800">Nenhum sensor identificado</h1></div>';
+}
+?>
+      
 
 
 

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	<head>
+	<body>
+
+ <table border='0'><td colspan='3'>umidade</td><tr bgcolor='#D3D3D3' width='400px'><td width='100px'><b>Sensor</b></td><td width='50px'><b>Valor</b></td><td width='150px'><b>Data</b></td></tr><tr><tr><td>SensorUmidade</td><td>30</td><td>2020-01-01 15:10:23</td></tr><tr><td>Sensor de Umidade</td><td>45</td><td>2022-09-02 06:41:54</td></tr><tr><td>Sensor de Umidade 02</td><td>34.2</td><td>2022-09-02 06:43:13</td></tr></tr></table>
