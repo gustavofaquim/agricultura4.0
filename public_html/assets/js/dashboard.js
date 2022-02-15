@@ -1,38 +1,25 @@
-setInterval(function()
-{
-    
-    $(document).ready(function(){
-        let Itens = [];//Variavel para adicionar os itens retornado do backend
-        let cardSensor =  document.getElementById("cardSensor");//Selecionando a div que irá receber o conteúdo gerado automaticamente
-       
-        //Chamada do Ajax para trazer os detalhes da ordem
-        $.ajax({
-          url: '../app/router/ajax.php', //selecionando o endereço que iremos acessar no backend
-          type: 'GET', //selecionando o tipo de requesição, PUT,GET,POST,DELETE
-          sucess: function(){},//Em caso de sucesso
-          error: function(err){//Em caso de erro
-            console.log(err);//Exibir o erro no console JS do navegador
-          }
-        }).done(function(resultados){
-            //Armazenando os dados retornado do backend para a variável Itens
-            Itens = resultados;
-            //Efetuando um loop para cada que esteja no JSON retornado
-            Itens.forEach(function (item){
-              //Concatenando o conteúdo ao elemento HTML
-              cardSensor.innerHTML = divVagas.innerHTML + 
-                "<div class='card'>"+
-                   "<h5 class='card-title'><a href='/vaga/"+item.id+"'>"+item.nome+"</a></h5>"+
-                   "<p class='card-text'>"+item.texto+"</p>"+
-                "</div>";
-            });//Fim forEach
-        });//Fim chamada Ajax
-      }
-      );
-    
-    
-    
-    //alert("hi");
-}, 5000);
-
-
-
+$(document).ready(function(){
+	var att = window.localStorage.getItem('retornos'); //Criamos a variável ATT para receber a variável global retornos
+	setInterval(function(){//Quando o documento estiver pronto, dê um setinvertal em qualquerCoisa()
+    qualquerCoisa(att); //Enviamos os valores contidos na variável ATT como parâmetro na execução do ajax
+    	}, 2000 );//o setInterval será executado a cada 2 segundo, caso queira que seja executado a cada 5 segundos seria "5000".	
+});
+ function qualquerCoisa(retornos){ //Recebemos o parâmetro com o nome de "retornos"
+	$.ajax({
+		type:'post',		
+		dataType: 'json',	
+		url: '../app/ajax.php',
+        data: {retornos},//Enviamos "retornos" para o PHP usando o "data", ele será recebido no PHP como "$_POST['retornos']".
+		success: function(dados){
+			console.log(dados[0]);
+			for(var i=0;dados.length>i;i++){
+				var d = $('#db');
+				d.append('<p> Tipo Sensor: ' + dados[i].tipo_sensor + '</p>');
+        d.append('<p> Descrição>: ' + dados[i].desc  + '</p>');
+        d.append('<p> Valor: ' + dados[i].valor +'</p>');
+        d.append('<p> Data:' + dados[i].dt_hr +'</p>');
+			}
+        window.localStorage.setItem('retornos', dados.length);//Salvamos os dados retornados no success na nossa variável, e na próxima execução ela estará alterada para o valor de retornos que tivemos do PHP.
+		}
+	});
+  }

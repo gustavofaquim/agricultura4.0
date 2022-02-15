@@ -18,6 +18,7 @@
     <!--<link href="../app/assets/css/style.css" rel="stylesheet">-->
     <link href="../public/assets/style/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3359b3a2da.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <title>Agricultura 4.0</title>
   </head>

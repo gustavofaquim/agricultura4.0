@@ -105,7 +105,7 @@ class SensorDAO extends Conexao{
     }
 
     public function listar_por_tipo($id){
-        $query = 'select * from sensor where tipo_sensor = :id';
+        $query = 'select * from sensor where tipo_sensor = :id order by dt_hr asc';
         $stmt = $this->conectar()->prepare($query);
         $stmt->bindValue(':id', $id);
         $stmt->execute();

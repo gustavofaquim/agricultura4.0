@@ -43,10 +43,11 @@ class SensorController{
         $sensorDAO = new SensorDAO();
         $lista = $sensorDAO->listar();
         
-        $sensores = array();
-
+        //$sensores = array();
+        
         foreach($lista as $id=>$list){
             $sensores[$list->__get('tipo_sensor')->__get('tipo')] = $list;
+            
            
             /*if(strpos($list->__get('tipo_sensor')->__get('tipo'), 'pluviometrico') !== false){
             //$chuva = array('tipo_sensor'=>$list->__get('tipo_sensor')->__get('tipo'), 'tp_sensor'=>$list 'valor'=> $list->__get('valor'), 'tipo'=> 'primary', 'icon'=>'fas fa-cloud-rain fa-2x', 'link'=>'chuva');
@@ -83,7 +84,7 @@ class SensorController{
         $sensorDAO = new SensorDAO();
         
         $sensorDAO->salvar($sensor);
-
+        
         header("Location: index.php");
         die();
     }

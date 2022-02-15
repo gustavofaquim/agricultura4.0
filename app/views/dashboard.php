@@ -1,3 +1,8 @@
+
+
+<!--<script src="../public_html/assets/js/dashboard.js"></script> -->
+
+
 <?php 
 ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
@@ -9,6 +14,11 @@ $sensorC = new SensorController();
 $tiposensor = $sensorC->tipos_sensores();
 $sensores = $sensorC->sensores_dashboard();
 #$sensor = $sensorC->pesquisaId(1);
+
+if(isset($_GET['retornos'])){
+    $pagina = addslashes($_GET['retornos']); 
+    var_dump($pagina);
+}
 
 
 ?>
@@ -25,7 +35,7 @@ $sensores = $sensorC->sensores_dashboard();
         
         foreach($sensores as $id =>$sensor){
             $color = $sensor->__get('tipo_sensor')->__get('color');
-        echo"<div class='col-xl-3 col-md-6 mb-4'>";
+        echo"<div class='col-xl-3 col-md-6 mb-4' id='sensores'>";
             echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
                 echo"<div class='card-body'>";
                     echo"<div class='row no-gutters align-items-center'>";
@@ -33,7 +43,7 @@ $sensores = $sensorC->sensores_dashboard();
                        //echo"<a href='?i=".$sensor['link']."'>";
                        echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
                                     echo "<div class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
-                                    echo "<div id='cardSensor'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
+                                    echo "<div id='cardSensor'class='h5 mb-0 font-weight-bold text-gray-800' id='card-sensores'>".$sensor->__get('valor')."</div>";          
                         echo"</a></div>";
                         echo"<div class='col-auto'>";
                             echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
@@ -66,3 +76,50 @@ $sensores = $sensorC->sensores_dashboard();
         </div> -->
      </div>
 </div>
+
+
+
+<script>
+
+$(document).ready(function(){
+	var att = window.localStorage.getItem('retornos'); //Criamos a variável ATT para receber a variável global retornos
+	setInterval(function(){//Quando o documento estiver pronto, dê um setinvertal em qualquerCoisa()
+    qualquerCoisa(att); //Enviamos os valores contidos na variável ATT como parâmetro na execução do ajax
+    	}, 2000 );//o setInterval será executado a cada 2 segundo, caso queira que seja executado a cada 5 segundos seria "5000".	
+});
+ function qualquerCoisa(retornos){ //Recebemos o parâmetro com o nome de "retornos"
+	$.ajax({
+		type:'post',		
+		dataType: 'json',	
+		url: '../app/ajax.php',
+        data: {retornos},//Enviamos "retornos" para o PHP usando o "data", ele será recebido no PHP como "$_POST['retornos']".
+		success: function(dados){
+            console.log(dados['pluviometrico'].id);
+			
+            dados.forEach(s, i){
+                var d = $('.sensores');
+                d.append('');
+                d.append('');
+                d.append('');
+                d.append('');
+                d.append('');
+                d.append('');
+                d.append('');
+                d.append('');
+                
+            }
+            
+            
+            for(var i=0;dados.length>i;i++){
+				var d = $('.card-sensores');
+				d.append('<p> Tipo Sensor: ' + dados[i].tipo_sensor + '</p>');
+                d.append('<p> Descrição>: ' + dados[i].desc  + '</p>');
+                d.append('<p> Valor: ' + dados[i].valor +'</p>');
+                d.append('<p> Data:' + dados[i].dt_hr +'</p>');
+			}
+            window.localStorage.setItem('retornos', dados.length);//Salvamos os dados retornados no success na nossa variável, e na próxima execução ela estará alterada para o valor de retornos que tivemos do PHP.
+		}
+	});
+  }
+
+</script>

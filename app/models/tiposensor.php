@@ -1,10 +1,10 @@
 <?php
 
 class TipoSensor{
-    private $id;
+    /*private $id;
     private $tipo;
     private $color;
-    private $icon;
+    private $icon;*/
 
     public function __construct($tipo, $icon, $color){
         $this->tipo = $tipo;
