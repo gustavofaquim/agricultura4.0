@@ -58,14 +58,25 @@ INSERT INTO tipo_sensor (id, tipo, icon, color) VALUES
 
 
 
--- Evento
-CREATE EVENT media_sensores
+-- Eventos
+CREATE EVENT insere_media
     ON SCHEDULE
-      EVERY 20 SECOND
-    DO
-      INSERT INTO sensor_temp (tipo_sensor, descricao, valor, dt_hr) -- insere os registros
-        (SELECT s.tipo_sensor, t.tipo, avg(s.valor) as 'media', NOW() FROM sensor s
+      EVERY 40 SECOND
+    DO 
+      INSERT INTO sensor (tipo_sensor, descricao, valor, dt_hr) -- insere os registros
+        (SELECT s.tipo_sensor, t.tipo, avg(s.valor) as 'media', NOW() FROM sensor_temp s
         INNER JOIN tipo_sensor t ON t.id = s.tipo_sensor
         group by tipo_sensor order by tipo_sensor);
-      TRUNCATE TABLE sensor; -- apaga os dados da tabela
-      ALTER TABLE sensor AUTO_INCREMENT = 1   -- reseta o indice da tabela
+
+
+CREATE EVENT limpa_tabela
+    ON SCHEDULE
+      EVERY 41 SECOND
+    DO 
+	TRUNCATE TABLE sensor_temp; -- apaga os dados da tabela
+
+CREATE EVENT reseta_indice
+    ON SCHEDULE
+      EVERY 42 SECOND
+    DO 
+ALTER TABLE sensor_temp AUTO_INCREMENT = 1;   -- reseta o indice da tabela
