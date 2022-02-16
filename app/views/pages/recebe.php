@@ -8,7 +8,7 @@ if(isset($_GET['valor'])){
     $tipo = $_GET['tipo'];
     $desc = $_GET['desc'];
     $valor = $_GET['valor'];
-    $dt_hr = date('Y-d-m h:i:s', time());
+    $dt_hr = date('Y-m-d h:i:s', time());
     //$dt_hr = $_GET['dt_hr'];
     //$valor = $_GET['umidade'];
     $sensor = new Sensor($tipo,$desc, $valor, $dt_hr);

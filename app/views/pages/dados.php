@@ -3,49 +3,35 @@
 if(isset($_GET['tp'])){
         $tp = $_GET['tp']; 
    
-$sensorC = new SensorController();
-//$sensores = $sensorC->listar();
-
-#$sensor = $sensorC->pesquisaId(1);
-$sensores = $sensorC->listar_por_tipo($tp);
-/*echo "<pre>";
-echo var_dump($sensores);
-echo "</pre>";*/
-?>
-
-<div class="d-sm-flex align-items-center justify-content-between mb-4">    
-        <h1 class="h3 mb-0 text-gray-800 text-uppercase"><?php echo $sensores[0]->__get('tipo_sensor')->__get('tipo') ?></h1>
-</div>
-
-<table class="table table-striped">
-        <thead <?php echo  "class='bg-".$sensores[0]->__get('tipo_sensor')->__get('color')." text-white'" ?>>
-                <tr>
-                <th scope='col'>SENSOR</th>
-                <th scope='col'>VALOR</th>
-                <th scope='col'>HORÁRIO</th>
-                </tr>
-        </thead>
-        <tbody>
-                <tr>
-                        <?php
-                        foreach($sensores as $id => $sensor){
+        $sensorC = new SensorController();
+        $sensores = $sensorC->listar_por_tipo($tp);
         
-                        echo "<tr>";
-                        echo "<td>".$sensor->__get('descricao')."</td>";
-                        echo "<td>".$sensor->__get('valor')."</td>";
-                        echo "<td>".$sensor->__get('dt_hr')."</td></tr>";
-                               
-                        }
-                        ?>
-                </tr>
-        </tbody>
-</table>
+        if(!empty($sensores)){
+                echo"<div class='d-sm-flex align-items-center justify-content-between mb-4'>";
+                        echo"<h1 class='h3 mb-0 text-gray-800 text-uppercase'>".$sensores[0]->__get('tipo_sensor')->__get('tipo')."</h1> </div>";
 
 
-<?php
-//echo "<a href='?i=exporta&tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
-echo "<a href='../xls.php?tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
+                echo"<table class='table table-striped'>";
+                        echo"<thead class='bg-".$sensores[0]->__get('tipo_sensor')->__get('color')."text-white'> <tr>";
+                                echo "<th scope='col'>SENSOR</th> <th scope='col'>VALOR</th> <th scope='col'>HORÁRIO</th> </tr> </thead>";
+                                echo"<tbody> <tr>";
+                                        
+                                foreach($sensores as $id => $sensor){
+                                        echo "<tr>";
+                                        echo "<td>".$sensor->__get('descricao')."</td>";
+                                        echo "<td>".$sensor->__get('valor')."</td>";
+                                        echo "<td>".$sensor->__get('dt_hr')."</td></tr>";                
+                                }
+                        
+                                echo"</tr>";
+                        echo"</tbody>";
+                echo"</table>";
 
+                //echo "<a href='?i=exporta&tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
+                echo "<a href='../xls.php?tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
+        
+        } // Fim IF   
+        
 }
 else{
         echo '<div class="d-sm-flex align-items-center justify-content-between mb-4"> <h1 class="h3 mb-0 text-gray-800">Nenhum sensor identificado</h1></div>';

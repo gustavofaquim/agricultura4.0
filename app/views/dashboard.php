@@ -10,14 +10,13 @@ error_reporting(E_ALL);
 
 
 $sensorC = new SensorController();
-//$sensores = $sensorC->listar();
-$tiposensor = $sensorC->tipos_sensores();
+//$tiposensor = $sensorC->tipos_sensores();
 $sensores = $sensorC->sensores_dashboard();
-#$sensor = $sensorC->pesquisaId(1);
+
 
 if(isset($_GET['retornos'])){
     $pagina = addslashes($_GET['retornos']); 
-    var_dump($pagina);
+    //var_dump($pagina);
 }
 
 
@@ -32,26 +31,30 @@ if(isset($_GET['retornos'])){
 
         <!-- UMIDADE DO SOLO-->
         <?php 
-        
-        foreach($sensores as $id =>$sensor){
-            $color = $sensor->__get('tipo_sensor')->__get('color');
-            echo"<div class='col-xl-3 col-md-6 mb-4' id='sensores'>";
-                echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
-                    echo"<div class='card-body'>";
-                        echo"<div class='row no-gutters align-items-center'>";
-                        echo"<div class='col mr-2'>";
-                        //echo"<a href='?i=".$sensor['link']."'>";
-                        echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
-                                        echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
-                                        echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
-                            echo"</a></div>";
-                            echo"<div class='col-auto'>";
-                                echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
+        if (is_array($sensores) || is_object($sensores)){
+            foreach($sensores as $id =>$sensor){
+                $color = $sensor->__get('tipo_sensor')->__get('color');
+                echo"<div class='col-xl-3 col-md-6 mb-4' id='sensores'>";
+                    echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
+                        echo"<div class='card-body'>";
+                            echo"<div class='row no-gutters align-items-center'>";
+                            echo"<div class='col mr-2'>";
+                            //echo"<a href='?i=".$sensor['link']."'>";
+                            echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
+                                            echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
+                                            echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
+                                echo"</a></div>";
+                                echo"<div class='col-auto'>";
+                                    echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
+                                echo"</div>";
                             echo"</div>";
                         echo"</div>";
                     echo"</div>";
                 echo"</div>";
-            echo"</div>";
+            }
+        }
+        else{
+            echo "<h4>Sem dados para exibir no momento</h4>";
         }
         ?>
 
