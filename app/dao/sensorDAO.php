@@ -15,7 +15,7 @@ class SensorDAO extends Conexao{
 
     //Salvando no banco de dados
     public function salvar(Sensor $sensor){
-        $query = "insert into sensor (tipo_sensor, descricao, valor, dt_hr) values (:tipo,:desc,:valor, :dt_hr);";
+        $query = "insert into sensor_temp (tipo_sensor, descricao, valor, dt_hr) values (:tipo,:desc,:valor, :dt_hr);";
         $stmt = $this->conectar()->prepare($query);
         $stmt->bindValue(":tipo", $sensor->__get('tipo_sensor'));
         $stmt->bindValue(":desc", $sensor->__get('descricao'));
@@ -49,7 +49,7 @@ class SensorDAO extends Conexao{
     }
 
     public function listar(){
-        $query = "select * from sensor";
+        $query = "select * from sensor_temp";
         $stmt = $this->conectar()->prepare($query);
         $stmt->execute();
 
@@ -68,6 +68,8 @@ class SensorDAO extends Conexao{
         }
         return $sensores;
     }
+
+    
 
     public function tipos_sensor($id){
         $query = 'select * from tipo_sensor where id = :id';
