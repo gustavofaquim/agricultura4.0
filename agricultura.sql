@@ -1,6 +1,35 @@
 CREATE database agricultura;
 use agricultura;
 
+
+CREATE TABLE grupos(
+  id int not null AUTO_INCREMENT,
+  nome varchar(30) not null,
+  primary key(id)
+);
+
+CREATE TABLE usuarios(
+  id int not null AUTO_INCREMENT,
+  nome varchar(150) not null,
+  usuario varchar(20) not null,
+  senha varchar(300) not null,
+  grupo INT  NOT NULL,
+  ativo BOOL NOT NULL DEFAULT '1',
+  UNIQUE KEY usuario (usuario),
+  foreign key (grupo) REFERENCES grupos(id),
+  primary key(id)
+);
+
+
+CREATE TABLE central(
+  id int not null AUTO_INCREMENT,
+  descricao varchar(300) not null,
+  usuario varchar(20) not null,
+  primary key(id, usuario),
+  foreign key(usuario) REFERENCES usuarios(usuario)
+);
+
+
 CREATE TABLE tipo_sensor (
   id int NOT NULL AUTO_INCREMENT,
   tipo varchar(100) NOT NULL,
@@ -12,24 +41,29 @@ CREATE TABLE tipo_sensor (
 CREATE TABLE sensor (
   id int NOT NULL AUTO_INCREMENT,
   tipo_sensor int NOT NULL,
+  central int not null
   descricao varchar(200) NOT NULL,
   valor float NOT NULL,
   dt_hr datetime NOT NULL,
   primary key(id),
-  foreign key(tipo_sensor) REFERENCES tipo_sensor(id)
+  foreign key(tipo_sensor) REFERENCES tipo_sensor(id),
+  foreign key(central) REFERENCES central(id)
 );
 
 CREATE TABLE sensor_temp (
   id int NOT NULL AUTO_INCREMENT,
   tipo_sensor int NOT NULL,
+  central int not null
   descricao varchar(200) NOT NULL,
   valor float NOT NULL,
   dt_hr datetime NOT NULL,
   primary key(id),
-  foreign key(tipo_sensor) REFERENCES tipo_sensor(id)
+  foreign key(tipo_sensor) REFERENCES tipo_sensor(id),
+  foreign key(central) REFERENCES central(id)
 );
 
-CREATE TABLE acionamento(
+
+/*CREATE TABLE acionamento(
   id int NOT NULL AUTO_INCREMENT,
   tipo_sensor int NOT NULL,
   sensor int NOT NULL,
@@ -37,7 +71,19 @@ CREATE TABLE acionamento(
   primary key(id),
   foreign key(tipo_sensor) REFERENCES tipo_sensor(id),
   foreign key(sensor) REFERENCES sensor_temp (id)
-);
+);*/
+
+insert into grupos(nome) values
+  ('administrador'),
+  ('produtor')
+
+insert into usuarios(nome, usuario, senha, grupo) values
+('Teste01', 'teste01', SHA1('teste01'), 1),
+('Teste02', 'teste02', SHA1('teste02'), 2);
+
+
+insert into central(descricao, usuario) values
+('Central da Fazenda Rio Vermelho', 'teste02');
 
 INSERT INTO tipo_sensor (id, tipo, icon, color) VALUES
 (1, 'umidade', 'fas fa-tint fa-2x', 'success'),
@@ -46,15 +92,8 @@ INSERT INTO tipo_sensor (id, tipo, icon, color) VALUES
 (4, 'ar', 'fas fa-wind  fa-2x', 'secondary');
 
 
-
-/*INSERT INTO sensor (id, tipo_sensor, descricao, valor, dt_hr) VALUES
-(1, 1, 'SensorUmidade', 30, '2020-01-01 15:10:23'),
-(2, 2, 'Sensor Chuva 01', 34, '2022-02-06 15:32:57'),
-(3, 5, 'Sensor Temperatura 01', 32, '2022-02-09 18:26:53'),
-(4, 5, 'Sensor Temperatura 02', 23, '2022-02-09 18:27:34'),
-(5, 2, 'Sensor Chuva 01', 200, '2022-02-09 18:27:51'),
-(6, 1, 'Sensor de Umidade', 45, '2022-09-02 06:41:54'),
-(7, 1, 'Sensor de Umidade 02', 34.2, '2022-09-02 06:43:13');*/
+insert into sensor_temp(tipo_sensor, central, descricao, valor, dt_hr) values
+(1,1,'Sensor de Umidade 01', 2000, NOW())
 
 
 
