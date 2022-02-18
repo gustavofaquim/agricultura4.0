@@ -30,12 +30,15 @@
 
     <div class="row">
         <div class="p-5">
-            <form class="user">
+            <form class="user" action='../pages/login.php'>
                 <div class="form-group">
-                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Código de acesso...">
+                    <input type="text" class="form-control form-control-user" id="usuario"  placeholder="Usuário">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control form-control-user" id="senha"  placeholder="Senha">
                 </div>
                                             
-                <a href="../../../?i=home&login=true" class="btn btn-primary btn-user btn-block">Entrar </a>
+                <input type="submit" class="btn btn-primary btn-user btn-block">
             </form>
         </div>
     </div>

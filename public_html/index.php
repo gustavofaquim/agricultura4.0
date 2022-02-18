@@ -31,8 +31,8 @@ if(isset($_GET['i'])){
     case 'exportar':
       include '../app/views/pages/table.php';
       break;
-    case 'temperatura':
-      include '../app/views/pages/temperatura.php';
+    case 'login':
+      include '../app/views/pages/login.php';
       break;
     case 'acionamento';
       include '../app/views/pages/acionamento.php';

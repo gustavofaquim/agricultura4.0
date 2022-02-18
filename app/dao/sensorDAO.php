@@ -15,9 +15,10 @@ class SensorDAO extends Conexao{
 
     //Salvando no banco de dados
     public function salvar(Sensor $sensor){
-        $query = "insert into sensor_temp (tipo_sensor, descricao, valor, dt_hr) values (:tipo,:desc,:valor, :dt_hr);";
+        $query = "insert into sensor_temp (tipo_sensor, central, descricao, valor, dt_hr) values (:tipo, :central, :desc,:valor, :dt_hr);";
         $stmt = $this->conectar()->prepare($query);
         $stmt->bindValue(":tipo", $sensor->__get('tipo_sensor'));
+        $stmt->bindValue(":central", $sensor->__get('central'));
         $stmt->bindValue(":desc", $sensor->__get('descricao'));
         $stmt->bindValue(":valor", $sensor->__get('valor'));
         $stmt->bindValue(":dt_hr", $sensor->__get('dt_hr'));
@@ -42,7 +43,7 @@ class SensorDAO extends Conexao{
 
         $result = $stmt->fetch(PDO::FETCH_OBJ);
 
-        $sensor = new Sensor($result->tipo_sensor, $result->descricao, $result->valor);
+        $sensor = new Sensor($result->tipo_sensor, $result->central, $result->descricao, $result->valor);
         $sensor->__set('id', $result->id);
 
         return $sensor;
@@ -61,7 +62,7 @@ class SensorDAO extends Conexao{
 
         foreach($result as $id => $objeto){
             $tipo = $tiposensorDAO->tipos_sensor($objeto->tipo_sensor);
-            $sensor = new Sensor($tipo, $objeto->descricao, $objeto->valor, $objeto->dt_hr);
+            $sensor = new Sensor($tipo, $objeto->central, $objeto->descricao, $objeto->valor, $objeto->dt_hr);
             $sensor->__set('id', $objeto->id);
 
             $sensores[] = $sensor;
@@ -118,7 +119,7 @@ class SensorDAO extends Conexao{
 
         foreach($result as $id => $objeto){
             $tipo = $tiposensorDAO->tipos_sensor($objeto->tipo_sensor);
-            $sensor = new Sensor($tipo, $objeto->descricao, $objeto->valor, $objeto->dt_hr);
+            $sensor = new Sensor($tipo, $objeto->central, $objeto->descricao, $objeto->valor, $objeto->dt_hr);
             $sensor->__set('id', $objeto->id);
 
             $sensores[] = $sensor;

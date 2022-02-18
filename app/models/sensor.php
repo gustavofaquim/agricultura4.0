@@ -6,9 +6,10 @@ class Sensor{
     private $descricao;
     private $valor;*/
 
-    public function __construct($tipo_sensor,$descricao,$valor, $dt_hr)
+    public function __construct($tipo_sensor,$central,$descricao,$valor, $dt_hr)
     {
         $this->tipo_sensor = $tipo_sensor;
+        $this->central = $central;
         $this->valor = $valor;
         $this->descricao = $descricao;
         $this->dt_hr = $dt_hr;

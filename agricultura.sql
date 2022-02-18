@@ -22,10 +22,10 @@ CREATE TABLE usuarios(
 
 
 CREATE TABLE central(
-  id int not null AUTO_INCREMENT,
+  cod varchar(300) not null,
   descricao varchar(300) not null,
   usuario varchar(20) not null,
-  primary key(id, usuario),
+  primary key(cod),
   foreign key(usuario) REFERENCES usuarios(usuario)
 );
 
@@ -41,25 +41,25 @@ CREATE TABLE tipo_sensor (
 CREATE TABLE sensor (
   id int NOT NULL AUTO_INCREMENT,
   tipo_sensor int NOT NULL,
-  central int not null
+  central varchar(300) not null,
   descricao varchar(200) NOT NULL,
   valor float NOT NULL,
   dt_hr datetime NOT NULL,
   primary key(id),
   foreign key(tipo_sensor) REFERENCES tipo_sensor(id),
-  foreign key(central) REFERENCES central(id)
+  foreign key(central) REFERENCES central(cod)
 );
 
 CREATE TABLE sensor_temp (
   id int NOT NULL AUTO_INCREMENT,
   tipo_sensor int NOT NULL,
-  central int not null
+  central varchar(300) not null,
   descricao varchar(200) NOT NULL,
   valor float NOT NULL,
   dt_hr datetime NOT NULL,
   primary key(id),
   foreign key(tipo_sensor) REFERENCES tipo_sensor(id),
-  foreign key(central) REFERENCES central(id)
+  foreign key(central) REFERENCES central(cod)
 );
 
 
@@ -82,18 +82,18 @@ insert into usuarios(nome, usuario, senha, grupo) values
 ('Teste02', 'teste02', SHA1('teste02'), 2);
 
 
-insert into central(descricao, usuario) values
-('Central da Fazenda Rio Vermelho', 'teste02');
+insert into central(cod,descricao, usuario) values
+('203x898m92x8x93m','Central da Fazenda Rio Vermelho', 'teste02');
 
 INSERT INTO tipo_sensor (id, tipo, icon, color) VALUES
 (1, 'umidade', 'fas fa-tint fa-2x', 'success'),
 (2, 'pluviometrico', 'fas fa-cloud-rain fa-2x', 'primary'),
-(3, 'temperatura ', 'fas fa-temperature-low fa-2x', 'danger'),
+(3, 'temperatura ', 'fas   fa-temperature-low fa-2x', 'danger'),
 (4, 'ar', 'fas fa-wind  fa-2x', 'secondary');
 
 
 insert into sensor_temp(tipo_sensor, central, descricao, valor, dt_hr) values
-(1,1,'Sensor de Umidade 01', 2000, NOW())
+(1,'203x898m92x8x93m','Sensor de Umidade 01', 2000, NOW())
 
 
 
