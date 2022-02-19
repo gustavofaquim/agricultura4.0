@@ -3,12 +3,21 @@
 require_once("../app/controllers/SensorController.php");
 require_once("../app/dao/sensorDAO.php");
 require_once("../app/models/sensor.php");
+require_once('../app/models/Usuario.php');
+require_once('../app/dao/UsuarioDAO.php');
+require_once('../app/controllers/UsuarioController.php');
+
+
+session_start();
 
 //umidade
 
 $pagina = 'home'; 
 $login = false;
 
+
+//$user = new UsuarioController($);
+//$userC = $user->autenticacao();
 
 if(isset($_GET['i'])){
     $pagina = addslashes($_GET['i']); 

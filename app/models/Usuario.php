@@ -1,12 +1,12 @@
 <?php
 
 class Usuario{
-    public function __construct($nome,$usuario,$senha,$grupo,$$ativo){
+    public function __construct($nome,$usuario,$senha,$grupo,$ativo){
         $this->nome = $nome;
         $this->usuario = $usuario;
         $this->senha = $senha;
         $this->grupo = $grupo;
-        $this->ativo;
+        $this->ativo = $ativo;
     }
 
     public function __get($atributo){

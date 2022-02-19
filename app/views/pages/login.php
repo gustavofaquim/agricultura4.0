@@ -30,15 +30,18 @@
 
     <div class="row">
         <div class="p-5">
-            <form class="user" action='../pages/login.php'>
+            <form class="user" method="POST" action='#'>
                 <div class="form-group">
                     <input type="text" class="form-control form-control-user" id="usuario"  placeholder="Usuário">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control form-control-user" id="senha"  placeholder="Senha">
+                    <input type="password" class="form-control form-control-password" id="senha"  placeholder="Senha">
+                </div>
+                <div class="form-group">
+                    <input type="hidden" class="form-control form-control-user" id="csrf" value='56f4d65f4df4d654'>
                 </div>
                                             
-                <input type="submit" class="btn btn-primary btn-user btn-block">
+                <input type="button" onclick="login()" class="btn btn-primary btn-user btn-block" value="Entrar">
             </form>
         </div>
     </div>
@@ -46,6 +49,72 @@
     </div>
 
 </div>
+
+
+<script> 
+
+
+function login(){
+
+    var user = $('#usuario').val();
+    var senha = $('#senha').val();
+
+    if(user != "" && senha != ""){
+        // console.log(user + " - " + senha);
+
+        var json = {'user':user, 'senha':senha};
+
+            $.ajax({
+            type:"POST", crossDomain: true, cache: false,
+            dataType:'json',
+            url: '../app/login-v.php',
+            //url: '..app/controllers/UsuarioController.php',
+            data: {user: user, senha: senha},
+            sucess: function(retorno) {
+                console.log(retorno);
+                window.location.href='./index.php';
+            },
+            error: function(e){
+                console.log(e);
+            }
+
+        });
+    }
+    else{
+        alert('Os campos não podem ser vazios.');
+    }
+   
+}
+
+
+ function qualquerCoisa(retornos){ //Recebemos o parâmetro com o nome de "retornos"
+	$.ajax({
+		type:'post',		
+		dataType: 'json',	
+		url: '../app/ajax.php',
+        data: {retornos},//Enviamos "retornos" para o PHP usando o "data", ele será recebido no PHP como "$_POST['retornos']".
+		success: function(dados){
+            
+            for (var item in dados){
+                //console.log(item + " - " + dados[item].valor);
+                $("#valor-" + item).html(dados[item].valor);
+            }
+            
+           
+            /*if(dados['umidade'].valor != $('#cardSensor').text()){
+                $('cardSensor'.text())
+            }*/
+            //console.log($('#valor-'+dados['umidade'].tipo_sensor.tipo).text());
+            //$("#cardSensor").html(dados['umidade'].valor);
+			
+            window.localStorage.setItem('retornos', dados.length);//Salvamos os dados retornados no success na nossa variável, e na próxima execução ela estará alterada para o valor de retornos que tivemos do PHP.
+		}
+	});
+  }
+
+</script>
+
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
