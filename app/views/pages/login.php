@@ -1,3 +1,18 @@
+<?php 
+
+if(isset($_GET['i'])){
+    $pagina = addslashes($_GET['i']); 
+    echo $pagina;
+    switch ($pagina) {
+        case 'dashboard';
+        header("Location: /agricultura4.0/public_html/index.php");
+        break;
+      }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -17,7 +32,11 @@
     <link href="app/public/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="app/public/css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3359b3a2da.js" crossorigin="anonymous"></script>
-
+    <style>
+        #login-alert{
+        display: none;
+    }
+    </style>
 
     <title>Acesse</title>
   </head>
@@ -30,18 +49,22 @@
 
     <div class="row">
         <div class="p-5">
-            <form class="user" method="POST" action='#'>
+        <div id="login-alert" class="alert alert-danger col-sm-12">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        <span id="mensagem"></span>
+        </div>      
+            <form class="user" id="login-form" method="POST" action='#'>
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="usuario"  placeholder="Usuário">
+                    <input type="text" class="form-control form-control-user" id="usuario" name="usuario" placeholder="Usuário">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control form-control-password" id="senha"  placeholder="Senha">
+                    <input type="password" class="form-control form-control-password" id="senha" name="senha"  placeholder="Senha">
                 </div>
                 <div class="form-group">
                     <input type="hidden" class="form-control form-control-user" id="csrf" value='56f4d65f4df4d654'>
                 </div>
                                             
-                <input type="button" onclick="login()" class="btn btn-primary btn-user btn-block" value="Entrar">
+                <input type="button"  class="btn btn-primary btn-user btn-block" name="btn-login" id="btn-login" value="Entrar">
             </form>
         </div>
     </div>
@@ -50,8 +73,42 @@
 
 </div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
 <script> 
+
+
+$('document').ready(function(){
+ 
+	$("#btn-login").click(function(){
+		var data = $("#login-form").serialize();
+			
+		$.ajax({
+			type : 'POST',
+			url  : 'login-v.php',
+			data : data,
+			dataType: 'json',
+			beforeSend: function()
+			{	
+				$("#btn-login").html('Validando ...');
+			},
+			success :  function(response){						
+				if(response.codigo == "1"){	
+					$("#btn-login").html('Entrar');
+					$("#login-alert").css('display', 'none')
+                    console.log("Opaaaa");
+					//window.location.href = "../public_html/index.php";
+                    window.location.href = "?i=dashboard";
+				}
+				else{			
+					$("#btn-login").html('Entrar');
+					$("#login-alert").css('display', 'block')
+					$("#mensagem").html('<strong>Erro! </strong>' + response.mensagem);
+				}
+		    }
+		});
+	});
+ 
+});
 
 
 function login(){
@@ -65,13 +122,14 @@ function login(){
         var json = {'user':user, 'senha':senha};
 
             $.ajax({
-            type:"POST", crossDomain: true, cache: false,
+            type:"POST",
             dataType:'json',
             url: '../app/login-v.php',
             //url: '..app/controllers/UsuarioController.php',
             data: {user: user, senha: senha},
             sucess: function(retorno) {
-                console.log(retorno);
+                //console.log(retorno);
+                console.log("Entrou nessa merda finalemnte");
                 window.location.href='./index.php';
             },
             error: function(e){

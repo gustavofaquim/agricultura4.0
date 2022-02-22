@@ -17,7 +17,7 @@ require_once('../app/controllers/UsuarioController.php');
 session_start();
 
 
-include("../app/verifica_sessao.php");
+require_once("../app/verifica_sessao.php");
 
 //umidade
 
@@ -38,8 +38,6 @@ if(isset($_GET['i'])){
 //if($login){
   /* Carrega o header.php */ 
   include '../app/views/template/header.php';  
-
-  
 
   switch ($pagina) {
     case 'umidade':
