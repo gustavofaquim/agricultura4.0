@@ -41,26 +41,11 @@ class SensorController{
 
     public function sensores_dashboard(){
         $sensorDAO = new SensorDAO();
-        $lista = $sensorDAO->listar();
+        $lista = $sensorDAO->listar($_SESSION['usuario']);
         
-        //$sensores = array();
         
         foreach($lista as $id=>$list){
             $sensores[$list->__get('tipo_sensor')->__get('tipo')] = $list;
-            
-           
-            /*if(strpos($list->__get('tipo_sensor')->__get('tipo'), 'pluviometrico') !== false){
-            //$chuva = array('tipo_sensor'=>$list->__get('tipo_sensor')->__get('tipo'), 'tp_sensor'=>$list 'valor'=> $list->__get('valor'), 'tipo'=> 'primary', 'icon'=>'fas fa-cloud-rain fa-2x', 'link'=>'chuva');
-            $sensores[$list->__get('tipo_sensor')->__get('tipo')] = $chuva;
-           }
-           else if(strpos($list->__get('tipo_sensor')->__get('tipo'), 'umidade') !== false){
-            //$umidade = array('tipo_sensor'=>$list->__get('tipo_sensor')->__get('tipo'), 'valor'=> $list->__get('valor'), 'tipo'=> 'success', 'icon'=>'fas fa-tint fa-2x', 'link'=>'umidade');
-            $sensores['umidade'] = $umidade;
-           }
-           else if(strpos($list->__get('tipo_sensor')->__get('tipo'), 'temperatura') !== false){
-            //$temperatura = array('tipo_sensor'=>$list->__get('tipo_sensor')->__get('tipo'), 'valor'=> $list->__get('valor'), 'tipo'=> 'danger', 'icon'=>'fas fa-temperature-low fa-2x', 'link'=>'temperatura');
-            $sensores['temperatura'] = $temperatura;
-           }*/
         }
 
         //echo "<pre>";
@@ -72,7 +57,7 @@ class SensorController{
 
     public function listar_por_tipo($id_tipo){
         $sensorDAO = new SensorDAO();
-        $lista = $sensorDAO->listar_por_tipo($id_tipo);
+        $lista = $sensorDAO->listar_por_tipo($id_tipo, $_SESSION['usuario']);
         return $lista;
     }
 
