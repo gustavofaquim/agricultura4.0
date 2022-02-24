@@ -25,6 +25,58 @@ if(isset($_GET['retornos'])){
         <h1 class="h3 mb-0 text-gray-800">Dados gerais</h1>
     </div>
 
+    <div  class="d-sm-flex align-items-center justify-content-between mb-4">
+        <p class='mb-0 text-gray-800'>Ultima atualização: 23/02/2022 21h18</p>
+    </div>
+
+    <div class="container-fluid" id='box'>
+        <div class="row ">
+            <div class='col-12 col-md-12'>
+            <?php 
+                if (is_array($sensores) || is_object($sensores)){
+                    foreach($sensores as $id =>$sensor){
+                        $color = $sensor->__get('tipo_sensor')->__get('color');
+                        echo"<div id='sensores'>";
+                            echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
+                                echo"<div class='card-body'>";
+                                    echo"<div class='row no-gutters align-items-center'>";
+                                    echo"<div class='col mr-2'>";
+                                    //echo"<a href='?i=".$sensor['link']."'>";
+                                    echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
+                                                    echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
+                                                    echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
+                                        echo"</a></div>";
+                                        echo"<div class='col-auto'>";
+                                            echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
+                                        echo"</div>";
+                                    echo"</div>";
+                                echo"</div>";
+                            echo"</div>";
+                        echo"</div>";
+                    }
+                }
+                else{
+                    echo "<h4>Sem dados para exibir no momento</h4>";
+                }
+            ?>
+            </div>
+            </div>
+
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Content Row -->
      <div class="row">

@@ -11,3 +11,14 @@ a{
     background-color:  #4e73df !important;
     color: #FFFFFF;
 }
+
+.menu-item a{
+    color: #FFFFFF !important;
+}
+
+#box{
+    border: 1px solid red;
+    display: inline;
+    float: left;
+    width: 100%;
+}
