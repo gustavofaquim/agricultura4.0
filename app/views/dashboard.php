@@ -8,10 +8,13 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
 
+if(isset($_SESSION['codCentral'])){
+    $cod = $_SESSION['codCentral'];
 
-$sensorC = new SensorController();
-//$tiposensor = $sensorC->tipos_sensores();
-$sensores = $sensorC->sensores_dashboard();
+    $sensorC = new SensorController();
+    //$tiposensor = $sensorC->tipos_sensores();
+    $sensores = $sensorC->sensores_dashboard($cod);
+}
 
 
 if(isset($_GET['retornos'])){
@@ -29,52 +32,9 @@ if(isset($_GET['retornos'])){
         <p class='mb-0 text-gray-800'>Ultima atualização: 23/02/2022 21h18</p>
     </div>
 
-    <div class="container-fluid" id='box'>
-        <div class="row ">
-            <div class='col-12 col-md-12'>
-            <?php 
-                if (is_array($sensores) || is_object($sensores)){
-                    foreach($sensores as $id =>$sensor){
-                        $color = $sensor->__get('tipo_sensor')->__get('color');
-                        echo"<div id='sensores'>";
-                            echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
-                                echo"<div class='card-body'>";
-                                    echo"<div class='row no-gutters align-items-center'>";
-                                    echo"<div class='col mr-2'>";
-                                    //echo"<a href='?i=".$sensor['link']."'>";
-                                    echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
-                                                    echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
-                                                    echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
-                                        echo"</a></div>";
-                                        echo"<div class='col-auto'>";
-                                            echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
-                                        echo"</div>";
-                                    echo"</div>";
-                                echo"</div>";
-                            echo"</div>";
-                        echo"</div>";
-                    }
-                }
-                else{
-                    echo "<h4>Sem dados para exibir no momento</h4>";
-                }
-            ?>
-            </div>
-            </div>
-
+    <div id='box'>
+        <h1>Fazendo um teste...</h1>
     </div>
-    
-
-
-
-
-
-
-
-
-
-
-
 
 
 

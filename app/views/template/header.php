@@ -23,6 +23,14 @@
   </head>
   <body id="page-top">
 
+  <?php 
+  
+    $centralC = new CentralController();
+    $centrais = $centralC->pesquisar_usuario($_SESSION['usuario']);
+  
+  
+  ?>
+
   <div id="wrapper">
 
     <!-- Content Wrapper -->
@@ -50,10 +58,58 @@
                     echo"<li class='nav-item menu-item'><a class='nav-link' href='?i=dados&tp=".$tipo->__get('id')."'>  <span class='text-uppercase'>".$tipo->__get('tipo')." <i class='".$tipo->__get('icon')."'></i></span></a> </li>";
                 }
             ?>
+            <li> <a href="?i=logout">Sair </a></li>
             </ul>
+            
         </div>
     </nav>
-    
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id='menu-selecao'>
+    Central Atual       
+        <select class="form-select form-select-sm" id="codCentral" onChange='mudaCentral()' aria-label=".form-select-sm example">
+            <?php 
+                foreach($centrais as $id=>$central){
+                    echo"<option value='".$central->__get('cod')."'>".$central->__get('descricao')."</option>";
+                }
+            ?>
+        </select>
+
+    </nav>
+
+
+    <script>
+       /* $('#codCentral option:selected').on('click',function(){ 
+            var taskid = $(this).val();
+            alert(taskid);
+            $.ajax({ 
+                url: '../app/pages/session.php', 
+                type: 'POST', 
+                data: {cod: taskid },
+                success: function(data) { 
+                    window.location.reload(); 
+                } 
+            }); 
+
+        });*/
+        
+        function mudaCentral(){
+            var select = document.getElementById('codCentral');
+            var option = select.options[select.selectedIndex];
+            var cod = option.value;
+            alert(cod);
+
+            $.ajax({ 
+                url: '../app/views/pages/session.php', 
+                type: 'POST', 
+                data: {cod: cod },
+                success: function(data) { 
+                    window.location.reload(); 
+                } 
+            }); 
+        }
+
+
+    </script>
     
     <!-- Begin Page Content -->
     <div class="container-fluid">

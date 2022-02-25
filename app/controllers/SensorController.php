@@ -39,9 +39,9 @@ class SensorController{
         return $lista;
     }
 
-    public function sensores_dashboard(){
+    public function sensores_dashboard($cod){
         $sensorDAO = new SensorDAO();
-        $lista = $sensorDAO->listar($_SESSION['usuario']);
+        $lista = $sensorDAO->listar($cod);
         
         
         foreach($lista as $id=>$list){
