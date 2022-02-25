@@ -49,10 +49,10 @@ class SensorDAO extends Conexao{
         return $sensor;
     }
 
-    public function listar($cod){
-        $query = "select * from central where cod = :cod";
+    public function listar($user){
+        $query = "select * from central c inner join sensor_temp s on c.cod = s.central where c.usuario = :user";
         $stmt = $this->conectar()->prepare($query);
-        $stmt->bindValue(':cod', $cod);
+        $stmt->bindValue(':user', $user);
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);

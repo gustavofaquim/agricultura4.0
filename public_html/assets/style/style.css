@@ -21,10 +21,4 @@ a{
     display: inline;
     float: left;
     width: 100%;
-    margin-left: 0px;
-    margin-right:0px;
-}
-#menu-selecao{
-    background-color: #FFFFFF !important;
-    text-align: center !important;
 }
