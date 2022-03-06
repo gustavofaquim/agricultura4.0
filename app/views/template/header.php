@@ -31,15 +31,15 @@
     <!-- Main Content -->
     <div class="content">    
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-        <a class="navbar-brand" href="#">Central Monitoramento</a>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg ">
+        <a class="navbar-brand" href="#" id='Menu'>Central Monitoramento</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
             <li class="nav-item menu-item">
-                <a class="nav-link" href="#">Ínicio <span class="sr-only">(Página atual)</span></a>
+                <a class="nav-link" href="#">ÍNICIO <span class="sr-only">(Página atual)</span></a>
             </li>
 
             <?php
@@ -53,7 +53,43 @@
             </ul>
         </div>
     </nav>
+
+    <!--<nav class="navbar navbar-expand-lg navbar-light bg-light" id='menu-selecao'>
+    Central Atual       
+        <select class="form-select form-select-sm" id="codCentral" onChange='mudaCentral()' aria-label=".form-select-sm example">
+            <?php 
+                foreach($centrais as $id=>$central){
+                    echo"<option value='".$central->__get('cod')."'>".$central->__get('descricao')."</option>";
+                }
+            ?>
+        </select>
+
+    </nav> -->
+
+
+    <!--<script> FUNCIONANDOOOO
+        
+        function mudaCentral(){
+            var select = document.getElementById('codCentral');
+            var option = select.options[select.selectedIndex];
+            var cod = option.value;
+            alert(cod);
+
+            $.ajax({ 
+                type: 'post', 
+                url: '../app/views/pages/session.php', 
+                data: {cod},
+
+                success: function(data) { 
+                    alert('Opaaa')
+                    window.location.reload(); 
+                } 
+            }); 
+        }
+
+
+    </script>-->
     
     
     <!-- Begin Page Content -->
-    <div class="container-fluid">
+

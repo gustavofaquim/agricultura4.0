@@ -1,0 +1,43 @@
+<div class="row">
+            <?php 
+                if (is_array($sensores) || is_object($sensores)){
+                    foreach($sensores as $id =>$sensor){
+                        $color = $sensor->__get('tipo_sensor')->__get('color');  
+                        
+                        echo"<div class='card col-xl-2 col-md-6 mb-4'>";
+                            echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
+                            echo"<div id='div-icon'>";
+                                echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-".$color."'></i>";
+                            echo"</div>";
+                    
+                            echo"<div id='div-text'>";
+                                echo "<p class='text-uppercase'>".$sensor->__get('tipo_sensor')->__get('tipo')."<br>"; 
+                                echo "<span class='font-weight-bold'>".$sensor->__get('valor')."<span> </p>"; 
+                            echo"</div> </a>";
+                        echo"</div>";
+                    
+                    }
+                }
+            ?>
+
+        </div>
+
+
+
+
+<?php 
+        if (is_array($sensores) || is_object($sensores)){
+            foreach($sensores as $id =>$sensor){
+                $color = $sensor->__get('tipo_sensor')->__get('color');
+                echo "<div class='container-fluid bg-".$color." sensores id='#' > ";
+                    echo "<h4 class='text-uppercase'>".$sensor->__get('tipo_sensor')->__get('tipo')."</h4>";
+                    echo "<div class='container text-justify'>";
+                        echo": ".$sensor->__get('valor');
+                    
+                    echo "</div>";
+                echo "</div>";
+            }
+        }
+    
+    ?>
+

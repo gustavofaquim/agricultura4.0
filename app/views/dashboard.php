@@ -21,121 +21,148 @@ if(isset($_GET['retornos'])){
 
 
 ?>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dados gerais</h1>
-    </div>
+    <div class='container-fluid' id='card-geral'>
+        <div class="">
+            <h1 class=''>IF Goiano</h1>
+            <span>Ultima atualização: 23/02/2022 21h18</span>
+        </div>
+        <br> 
+        
+        <div class="row">
 
-    <div  class="d-sm-flex align-items-center justify-content-between mb-4">
-        <p class='mb-0 text-gray-800'>Ultima atualização: 23/02/2022 21h18</p>
-    </div>
-
-    <div class="container-fluid" id='box'>
-        <div class="row ">
-            <div class='col-12 col-md-12'>
+            <!-- UMIDADE DO SOLO-->
             <?php 
-                if (is_array($sensores) || is_object($sensores)){
-                    foreach($sensores as $id =>$sensor){
-                        $color = $sensor->__get('tipo_sensor')->__get('color');
-                        echo"<div id='sensores'>";
-                            echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
-                                echo"<div class='card-body'>";
-                                    echo"<div class='row no-gutters align-items-center'>";
-                                    echo"<div class='col mr-2'>";
-                                    //echo"<a href='?i=".$sensor['link']."'>";
-                                    echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
-                                                    echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
-                                                    echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
-                                        echo"</a></div>";
-                                        echo"<div class='col-auto'>";
-                                            echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
-                                        echo"</div>";
+            if (is_array($sensores) || is_object($sensores)){
+                foreach($sensores as $id =>$sensor){
+                    $color = $sensor->__get('tipo_sensor')->__get('color');
+                    echo"<div class='col-xl-2 col-md-6 mb-4' id='sensores'>";
+                        echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
+                            echo"<div class='card-body'>";
+                                echo"<div class='row no-gutters align-items-center'>";
+                                echo"<div class='col mr-2'>";
+                                //echo"<a href='?i=".$sensor['link']."'>";
+                                echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
+                                                echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
+                                                echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
+                                    echo"</a></div>";
+                                    echo"<div class='col-auto'>";
+                                        echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
                                     echo"</div>";
                                 echo"</div>";
                             echo"</div>";
                         echo"</div>";
-                    }
+                    echo"</div>";
                 }
-                else{
-                    echo "<h4>Sem dados para exibir no momento</h4>";
-                }
+            }
+            else{
+                echo "<h4>Sem dados para exibir no momento</h4>";
+            }
             ?>
-            </div>
-            </div>
+        </div>
 
     </div>
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Content Row -->
-     <div class="row">
-
-        <!-- UMIDADE DO SOLO-->
-        <?php 
+    <?php 
         if (is_array($sensores) || is_object($sensores)){
             foreach($sensores as $id =>$sensor){
                 $color = $sensor->__get('tipo_sensor')->__get('color');
-                echo"<div class='col-xl-3 col-md-6 mb-4' id='sensores'>";
-                    echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
-                        echo"<div class='card-body'>";
-                            echo"<div class='row no-gutters align-items-center'>";
-                            echo"<div class='col mr-2'>";
-                            //echo"<a href='?i=".$sensor['link']."'>";
-                            echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
-                                            echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
-                                            echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
-                                echo"</a></div>";
-                                echo"<div class='col-auto'>";
-                                    echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
-                                echo"</div>";
-                            echo"</div>";
-                        echo"</div>";
-                    echo"</div>";
-                echo"</div>";
+                echo "<div class='container-fluid bg-".$color." sensores id='card-page-sensores' > ";
+                    echo "<div class='titulo'><h4 class='text-uppercase'>".$sensor->__get('tipo_sensor')->__get('tipo')."</h4></div>";
+                    echo "<div class='container text-justify'>";
+                        
+                   // <!--  Grafico -->
+                    echo "<div class='col-xl-8 col-lg-6'>";
+                          echo "<div class='card shadow mb-4'>";
+                              //<!-- Card Header - Dropdown -->
+                              echo "<div class='card-header py-3'>";
+                                echo"<h6 class='m-0 font-weight-bold text-primary'> Umidade do Solo </h6> ";
+                              echo"</div>";
+                              //<!-- Card Body -->
+                              echo "<div class='card-body'>";
+                                  echo "<div class='chart-pie pt-4'>";
+                                      echo "<div id='grafico-umidade'></div>";
+                                  echo"</div>";
+                              echo"</div>";
+                          echo"</div>";
+                      echo"</div>";
+                    
+                    echo "</div>";
+                echo "</div>";
             }
         }
-        else{
-            echo "<h4>Sem dados para exibir no momento</h4>";
-        }
-        ?>
+    
+    ?>
 
+  
+                    
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Dia');
+      data.addColumn('number', 'Umidade do Solo');
      
-         <!-- Quantidade de acionamentos 
-         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                       <div class="col mr-2">
-                                <a href="?i=acionamento">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Acionamentos</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
-                                </a>
-                        </div>
-                        <div class="col-auto">
-                            <i class="far fa-arrow-alt-circle-up fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-     </div>
-</div>
+    
+    
+      /*data.addRows([
+        [1,  37.8],
+        [2,  30.9],
+        [3,  100.0],
+        [4,  11.7],
+        [5,  11.9],
+        [6,   8.8],
+        [7,   7.6],
+        [8,  12.3],
+        [9,  16.9],
+        [10, 12.8],
+        [11,  5.3],
+        [12,  6.6],
+        [13,  4.8],
+        [14,  4.2]
+      ]);*/
+
+      data.addRows([
+        <?php 
+
+            $sensorCT = new SensorController();
+            $sensoresT = $sensorCT->listar_por_tipo(1);
+          
+
+            $cont = 0;
+            foreach($sensoresT as $id => $sensorT){
+                $cont ++;
+                echo "[".$cont.", ".$sensorT->__get('valor')."],";          
+        }   
+            
+            
+        ?>
+      ]);
+
+      var options = {
+        legend: { position: 'bottom' },
+        series: {
+            0: { color: '#1cc88a' },
+          }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('grafico-umidade'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+  </script>
+<div id=""></div>
+
+
+
 
 
 
 <script>
-
 $(document).ready(function(){
 	var att = window.localStorage.getItem('retornos'); //Criamos a variável ATT para receber a variável global retornos
 	setInterval(function(){//Quando o documento estiver pronto, dê um setinvertal em qualquerCoisa()

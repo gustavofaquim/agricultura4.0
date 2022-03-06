@@ -2,6 +2,7 @@ a{
     text-decoration: none !important;
 }
 
+
 .cabecalho-tabela{
     background-color:  #1cc88a!important;
     color: #FFFFFF;
@@ -21,4 +22,37 @@ a{
     display: inline;
     float: left;
     width: 100%;
+    margin-top: 40px;
 }
+
+#card-geral{
+    background-color: #FFFFFF;
+    margin-top: 30px;
+}
+
+#card-geral a{
+    text-decoration: none !important;
+}
+
+#div-icon{
+    float: left;
+    display: inline;
+    padding: auto;
+    margin-right: 15px;
+    font-size: 20pt;
+}
+
+#div-text{
+    display: inline;
+    float: left;
+}
+
+.sensores{
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.titulo{
+    background-color: red;
+}
+

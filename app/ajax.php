@@ -7,7 +7,7 @@ require_once("../app/models/sensor.php");
 
 
 $sensorC = new SensorController();
-$retornos = $sensorC->sensores_dashboard();
+$retornos = $sensorC->sensores_dashboard('oeiuweiuweoiwuoi');
 if($_POST['retornos'] == $retornos){
     exit;
 }
