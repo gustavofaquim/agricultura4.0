@@ -11,7 +11,6 @@ require_once("../app/models/sensor.php");
 require_once('../app/models/Usuario.php');
 require_once('../app/dao/UsuarioDAO.php');
 require_once('../app/controllers/UsuarioController.php');
-require_once('../app/graficos/phplot.php');
 
 
 session_start();

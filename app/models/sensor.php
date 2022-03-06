@@ -1,10 +1,11 @@
 <?php
 include('tiposensor.php');
 class Sensor{
-    /*private $id;
-    private $tipo_sensor;
-    private $descricao;
-    private $valor;*/
+    private int $id;
+    private TipoSensor $tipo_sensor;
+    private String $descricao;
+    private String $valor;
+    private String $dt_hr;
 
     public function __construct($tipo_sensor,$central,$descricao,$valor, $dt_hr)
     {

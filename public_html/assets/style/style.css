@@ -50,9 +50,13 @@ a{
 .sensores{
     text-align: center;
     color: #FFFFFF;
+    padding: 40px;
 }
 
 .titulo{
-    background-color: red;
+    color: #FFFFFF;
+    margin-bottom: 0px;
+    text-align: center;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 }
 
