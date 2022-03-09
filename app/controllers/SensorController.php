@@ -57,6 +57,7 @@ class SensorController{
 
     public function listar_por_tipo($id_tipo){
         $sensorDAO = new SensorDAO();
+    
         $lista = $sensorDAO->listar_por_tipo($id_tipo, $_SESSION['usuario']);
         return $lista;
     }

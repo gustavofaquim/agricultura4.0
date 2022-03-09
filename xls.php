@@ -11,6 +11,7 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
 
+session_start();
 
 require_once("app/controllers/SensorController.php");
 require_once("app/dao/sensorDAO.php");

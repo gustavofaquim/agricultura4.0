@@ -39,7 +39,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
             <li class="nav-item menu-item">
-                <a class="nav-link" href="#">ÍNICIO <span class="sr-only">(Página atual)</span></a>
+                <a class="nav-link" href="?">ÍNICIO <span class="sr-only">(Página atual)</span></a>
             </li>
 
             <?php

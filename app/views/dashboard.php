@@ -23,8 +23,8 @@ if(isset($_GET['retornos'])){
 ?>
     <div class='container-fluid' id='card-geral'>
         <div class="">
-            <h1 class=''>IF Goiano</h1>
-            <span>Ultima atualização: 23/02/2022 21h18</span>
+            <h1 class=''>Nome Central</h1>
+            <span>Ultima atualização: data</span>
         </div>
         <br> 
         
@@ -98,6 +98,7 @@ if(isset($_GET['retornos'])){
     
     ?>
 
+
                     
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -139,8 +140,7 @@ if(isset($_GET['retornos'])){
 
             $cont = 0;
             foreach($sensoresG as $id => $sensorG){
-                $cont ++;
-                echo "[".$sensorG->__get('dt_hr').", ".$sensorG->__get('dt_hr')."],";     
+                echo "[".substr($sensorG->__get('dt_hr'),8,2).", ".$sensorG->__get('valor')."],";     
         }   
             
             
@@ -175,10 +175,8 @@ if(isset($_GET['retornos'])){
         <?php 
             $sensorCT = new SensorController();
             $sensoresG = $sensorCT->listar_por_tipo(3);
-            $cont = 0;
             foreach($sensoresG as $id => $sensorG){
-                $cont ++;
-                echo "[".$sensorG->__get('dt_hr').", ".$sensorG->__get('valor')."],";          
+                echo "[".substr($sensorG->__get('dt_hr'),8,2).", ".$sensorG->__get('valor')."],";           
         }    
         ?>
       ]);
@@ -214,7 +212,7 @@ if(isset($_GET['retornos'])){
             $cont = 0;
             foreach($sensoresG as $id => $sensorG){
                 $cont ++;
-                echo "[".$cont.", ".$sensorG->__get('valor')."],";          
+                echo "[".substr($sensorG->__get('dt_hr'),8,2).", ".$sensorG->__get('valor')."],";       
         }    
         ?>
       ]);

@@ -1,3 +1,4 @@
+
 <?php 
 
 ini_set('display_errors',1);
@@ -13,11 +14,11 @@ if(isset($_GET['tp'])){
         $sensores = $sensorC->listar_por_tipo($tp);
         
         if(!empty($sensores)){
-                echo"<div class='d-sm-flex align-items-center justify-content-between mb-4'>";
-                        echo"<h1 class='h3 mb-0 text-gray-800 text-uppercase'>".$sensores[0]->__get('tipo_sensor')->__get('tipo')."</h1> </div>";
-
-
-                echo"<table class='table table-striped'>";
+                $color = $sensores[0]->__get('tipo_sensor')->__get('color');
+                echo "<h4 class='text-uppercase titulo font-weight-bold bg-".$color."'>".$sensores[0]->__get('tipo_sensor')->__get('tipo')."</h4>";
+        
+                echo"<div class='container-fluid'> <br>";
+                echo"<table class='table table-striped' id='tabela'>";
                         echo"<thead class='bg-".$sensores[0]->__get('tipo_sensor')->__get('color')."text-white'> <tr>";
                                 echo "<th scope='col'>SENSOR</th> <th scope='col'>VALOR</th> <th scope='col'>HORÁRIO</th> </tr> </thead>";
                                 echo"<tbody> <tr>";
@@ -35,7 +36,7 @@ if(isset($_GET['tp'])){
 
                 //echo "<a href='?i=exporta&tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
                 echo "<a href='../xls.php?tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
-        
+                echo"</div>";
         } // Fim IF   
         
 }
