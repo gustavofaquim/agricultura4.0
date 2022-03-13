@@ -43,24 +43,29 @@ CREATE TABLE sensor (
   tipo_sensor int NOT NULL,
   central varchar(300) not null,
   descricao varchar(200) NOT NULL,
-  valor float NOT NULL,
-  dt_hr datetime NOT NULL,
   primary key(id),
   foreign key(tipo_sensor) REFERENCES tipo_sensor(id),
   foreign key(central) REFERENCES central(cod)
 );
 
-CREATE TABLE sensor_temp (
-  id int NOT NULL AUTO_INCREMENT,
-  tipo_sensor int NOT NULL,
-  central varchar(300) not null,
-  descricao varchar(200) NOT NULL,
+CREATE TABLE valor_sensor(
+  id int not null AUTO_INCREMENT,
+  sensor int not null,
   valor float NOT NULL,
   dt_hr datetime NOT NULL,
   primary key(id),
-  foreign key(tipo_sensor) REFERENCES tipo_sensor(id),
-  foreign key(central) REFERENCES central(cod)
+  foreign key(sensor) REFERENCES sensor(id)
 );
+
+CREATE TABLE valor_sensor_temp(
+  id int not null AUTO_INCREMENT,
+  sensor int not null,
+  valor float NOT NULL,
+  dt_hr datetime NOT NULL,
+  primary key(id),
+  foreign key(sensor) REFERENCES sensor(id)
+);
+
 
 
 /*CREATE TABLE acionamento(
@@ -75,7 +80,7 @@ CREATE TABLE sensor_temp (
 
 insert into grupos(nome) values
   ('administrador'),
-  ('produtor')
+  ('produtor');
 
 insert into usuarios(nome, usuario, senha, grupo) values
 ('Teste01', 'teste01', SHA1('teste01'), 1),
@@ -83,17 +88,36 @@ insert into usuarios(nome, usuario, senha, grupo) values
 
 
 insert into central(cod,descricao, usuario) values
-('203x898m92x8x93m','Central da Fazenda Rio Vermelho', 'teste02');
+('203x898m92x8x93m','Fazenda Rio Vermelho', 'teste02'),
+('fjdh8343847843m7','IF Goiano', 'teste02'),
+('212uuy1uyuycxcct','IFG', 'teste01');
 
 INSERT INTO tipo_sensor (id, tipo, icon, color) VALUES
-(1, 'umidade', 'fas fa-tint fa-2x', 'success'),
-(2, 'pluviometrico', 'fas fa-cloud-rain fa-2x', 'primary'),
-(3, 'temperatura ', 'fas   fa-temperature-low fa-2x', 'danger'),
-(4, 'ar', 'fas fa-wind  fa-2x', 'secondary');
+(1, 'umidade', 'fas fa-tint', 'success'),
+(2, 'pluviometrico', 'fas fa-cloud-rain', 'primary'),
+(3, 'temperatura ', 'fas   fa-temperature-low', 'danger'),
+(4, 'ar', 'fas fa-wind', 'info');
 
 
-insert into sensor_temp(tipo_sensor, central, descricao, valor, dt_hr) values
-(1,'203x898m92x8x93m','Sensor de Umidade 01', 2000, NOW())
+insert into sensor(tipo_sensor, central, descricao) values
+(1,'203x898m92x8x93m','Sensor de Umidade 01'),
+(3,'203x898m92x8x93m','Sensor de Temperatura'),
+(1,'fjdh8343847843m7','Sensor de Umidade 01');
+
+insert into valor_sensor_temp(sensor,valor,dt_hr) values
+(1, 90, '2022-02-05 12:40:20'),
+(1, 50, '2022-02-05 14:40:20'),
+(1, 90, '2022-02-05 17:57:20'),
+(1, 90, '2022-02-05 19:57:20'),
+(1, 90, '2022-02-05 21:57:20'),
+(2, 37, '2022-02-05 12:40:20'),
+(2, 35, '2022-02-05 14:40:20'),
+(2, 36, '2022-02-05 17:57:20'),
+(2, 28, '2022-02-05 19:57:20'),
+(2, 26, '2022-02-05 21:57:20'),
+(3, 40, '2022-02-05 12:57:20');
+
+
 
 
 
