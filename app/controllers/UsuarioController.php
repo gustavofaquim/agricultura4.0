@@ -4,7 +4,14 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
 
+//require_once('../dao/UsuarioDAO.php');
+
 class UsuarioController{
+
+    public function __construct()
+    {
+        
+    }
     
     public function autenticacao($user, $senha){
         
@@ -12,11 +19,7 @@ class UsuarioController{
         
         $usuarioD = $usuarioDAO->autenticacao($user, $senha);
 
-        if($usuarioD){
-            return 1;
-        }else{
-            return 0;
-        }
+        return $usuarioD;
 
     }
 

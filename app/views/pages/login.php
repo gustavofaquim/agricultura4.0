@@ -95,9 +95,10 @@ $('document').ready(function(){
 				if(response.codigo == "1"){	
 					$("#btn-login").html('Entrar');
 					$("#login-alert").css('display', 'none')
-                    console.log("Opaaaa");
-					//window.location.href = "../public_html/index.php";
-                    window.location.href = "?i=dashboard";
+                    //console.log("Opaaaa");
+					window.location.href = "central.php";
+                    //window.location.href = "?i=dashboard";
+                    //window.location.href = "?i=central";
 				}
 				else{			
 					$("#btn-login").html('Entrar');

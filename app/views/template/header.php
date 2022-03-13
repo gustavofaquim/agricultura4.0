@@ -50,6 +50,9 @@
                     echo"<li class='nav-item menu-item'><a class='nav-link' href='?i=dados&tp=".$tipo->__get('id')."'>  <span class='text-uppercase'>".$tipo->__get('tipo')." <i class='".$tipo->__get('icon')."'></i></span></a> </li>";
                 }
             ?>
+            <li class="nav-item menu-item">
+                <a class="nav-link" href="?i=sair">Sair</a>
+            </li>
             </ul>
         </div>
     </nav>

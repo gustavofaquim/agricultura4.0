@@ -9,9 +9,18 @@ ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
 
 
-$sensorC = new SensorController();
-//$tiposensor = $sensorC->tipos_sensores();
-$sensores = $sensorC->sensores_dashboard();
+
+
+if(isset($_GET['c'])){
+   $central = $_GET['c'];
+  
+  $sensorC = new SensorController();
+  $sensores = $sensorC->sensores_dashboard($central);
+  $centralC = new CentralController();
+  $central = $centralC->pesquisaId($central);
+}
+
+
 
 
 if(isset($_GET['retornos'])){
@@ -20,10 +29,11 @@ if(isset($_GET['retornos'])){
 }
 
 
+
 ?>
     <div class='container-fluid' id='card-geral'>
         <div class="">
-            <h1 class=''>Nome Central</h1>
+            <h1 class=''><?php echo $central->__get('descricao') ?></h1>
             <span>Ultima atualização: data</span>
         </div>
         <br> 

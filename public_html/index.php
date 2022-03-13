@@ -9,8 +9,9 @@ require_once("../app/controllers/SensorController.php");
 require_once("../app/dao/sensorDAO.php");
 require_once("../app/models/sensor.php");
 require_once('../app/models/Usuario.php');
-require_once('../app/dao/UsuarioDAO.php');
 require_once('../app/controllers/UsuarioController.php');
+require_once('../app/dao/CentralDAO.php');
+require_once('../app/controllers/CentralController.php');
 
 
 session_start();
@@ -65,10 +66,22 @@ if(isset($_GET['i'])){
     case 'exporta';
       include '../app/views/pages/xls.php';
       break;
+    case 'central';
+      include '../app/views/pages/user/central.php';
+      break;
+    case 'sair';
+      include '../app/views/pages/user/logout.php';
+      break;
+    case 'dashboard';
+      include '../app/views/pages/user/logout.php';
+      break;
     default:
       include '../app/views/dashboard.php';
       break;
   }
+
+
+  
 
   /* Carrega o footer.php */ 
   include '../app/views/template/footer.php';  

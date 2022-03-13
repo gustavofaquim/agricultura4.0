@@ -10,21 +10,26 @@ session_start();
 $path = $_SERVER['DOCUMENT_ROOT'];
 require_once($path.'/agricultura4.0/app/dao/conexao.php');
 require_once($path.'/agricultura4.0/app/models/Usuario.php');
+require_once($path.'/agricultura4.0/app/controllers/UsuarioController.php');
+require_once($path.'/agricultura4.0/app/dao/UsuarioDAO.php');
 
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '' ;
 $senha = (isset($_POST['senha'])) ? $_POST['senha'] : '' ;
 
+$usuarioC = new UsuarioController();
+$result = $usuarioC->autenticacao($usuario,$senha);
 
-
-$conexao = new Conexao();
+/*$conexao = new Conexao();
 $query = "select * from usuarios where usuario = :user and senha = :senha and ativo = 1";
 $stmt = $conexao->conectar()->prepare($query);
 $stmt->bindValue(':user', $usuario);
 $stmt->bindValue(':senha', SHA1($senha));
 $stmt->execute();
 
-$result = $stmt->fetch(PDO::FETCH_OBJ);
+$result = $stmt->fetch(PDO::FETCH_OBJ); */
 //var_dump($result);
+
+
         
 if($result != False){
 	//var_dump("Etrouuuuu");
