@@ -11,21 +11,22 @@ if(isset($_GET['tp'])){
         $tp = $_GET['tp']; 
    
         $sensorC = new SensorController();
-        $sensores = $sensorC->listar_por_tipo($tp);
+        $central = $_SESSION['central_cod'];
+        $sensores = $sensorC->listar_por_tipo($tp,$central);
         
         if(!empty($sensores)){
-                $color = $sensores[0]->__get('tipo_sensor')->__get('color');
-                echo "<h4 class='text-uppercase titulo font-weight-bold bg-".$color."'>".$sensores[0]->__get('tipo_sensor')->__get('tipo')."</h4>";
+                $color = $sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('color');
+                echo "<h4 class='text-uppercase titulo font-weight-bold bg-".$color."'>".$sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo')."</h4>";
         
                 echo"<div class='container-fluid'> <br>";
                 echo"<table class='table table-striped' id='tabela'>";
-                        echo"<thead class='bg-".$sensores[0]->__get('tipo_sensor')->__get('color')."text-white'> <tr>";
+                        echo"<thead class='bg-".$color."text-white'> <tr>";
                                 echo "<th scope='col'>SENSOR</th> <th scope='col'>VALOR</th> <th scope='col'>HORÁRIO</th> </tr> </thead>";
                                 echo"<tbody> <tr>";
                                         
                                 foreach($sensores as $id => $sensor){
                                         echo "<tr>";
-                                        echo "<td>".$sensor->__get('descricao')."</td>";
+                                        echo "<td>".$sensor->__get('sensor')->__get('descricao')."</td>";
                                         echo "<td>".$sensor->__get('valor')."</td>";
                                         echo "<td>".$sensor->__get('dt_hr')."</td></tr>";                
                                 }
@@ -35,7 +36,7 @@ if(isset($_GET['tp'])){
                 echo"</table>";
 
                 //echo "<a href='?i=exporta&tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
-                echo "<a href='../xls.php?tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
+                echo "<a href='../xls.php?tp=".$sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
                 echo"</div>";
         } // Fim IF   
         

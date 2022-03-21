@@ -13,9 +13,15 @@ error_reporting(E_ALL);
 
 session_start();
 
+
 require_once("app/controllers/SensorController.php");
 require_once("app/dao/sensorDAO.php");
 require_once("app/models/sensor.php");
+require_once('app/models/Usuario.php');
+require_once('app/controllers/UsuarioController.php');
+require_once('app/dao/CentralDAO.php');
+require_once('app/models/ValorSensor.php');
+require_once('app/controllers/CentralController.php');
 
 
 
@@ -31,15 +37,17 @@ $arquivo = 'planilha.xls';
 
 if(isset($_GET['tp'])){
     $tp = $_GET['tp']; 
+    $central = $_SESSION['central_cod'];
 
-$sensorC = new SensorController();
-$sensores = $sensorC->listar_por_tipo($tp);
+    $sensorC = new SensorController();
+    $central = $_SESSION['central_cod'];
+    $sensores = $sensorC->listar_por_tipo($tp,$central);
 
 // Criamos uma tabela HTML com o formato da planilha
 
 $table = " ";
 $table .= "<table border='0'>";
-$table .= "<td colspan='3'>".$sensores[0]->__get('tipo_sensor')->__get('tipo')."</td>";
+$table .= "<td colspan='3'>".$sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo')."</td>";
 $table .= "<tr bgcolor='#D3D3D3' width='400px'>";
 $table .= "<td width='100px'><b>Sensor</b></td>";
 $table .= "<td width='50px'><b>Valor</b></td>";
@@ -48,7 +56,7 @@ $table .= "</tr>";
 $table .= "<tr>";
 foreach($sensores as $id => $sensor){
     $table.= "<tr>";
-    $table .= "<td>".$sensor->__get('descricao')."</td>";
+    $table .= "<td>".$sensor->__get('sensor')->__get('descricao')."</td>";
     $table .= "<td>".$sensor->__get('valor')."</td>";
     $table .= "<td>".$sensor->__get('dt_hr')."</td>"; 
     $table .= "</tr>"; 

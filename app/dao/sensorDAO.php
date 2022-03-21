@@ -50,23 +50,29 @@ class SensorDAO extends Conexao{
     }
 
     public function listar($central){
-        $query = "select * from central c inner join sensor_temp s on c.cod = s.central where c.cod = :central";
+        $query = "select c.cod, s.tipo_sensor, s.descricao, vt.id as 'id_valor', vt.sensor as 'id_sensor', vt.valor, vt.dt_hr  from central c inner join sensor s on c.cod = s.central inner join valor_sensor_temp vt on s.id = vt.sensor where c.cod = :central";
         $stmt = $this->conectar()->prepare($query);
         $stmt->bindValue(':central', $central);
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         $sensores = array();
+       
         
         $tiposensorDAO = new sensorDAO();
+        $centralDAO = new CentralDAO();
         
 
         foreach($result as $id => $objeto){
             $tipo = $tiposensorDAO->tipos_sensor($objeto->tipo_sensor);
-            $sensor = new Sensor($tipo, $objeto->central, $objeto->descricao, $objeto->valor, $objeto->dt_hr);
-            $sensor->__set('id', $objeto->id);
+            $central  = $centralDAO->pesquisarID($objeto->cod);
+            $sensor = new Sensor($tipo, $central, $objeto->descricao);
+            $sensor->__set('id', $objeto->id_sensor);
+            $valorSensor = new ValorSensor($sensor,$objeto->valor, $objeto->dt_hr);
+            $valorSensor->__set('id', $objeto->id_valor);
+           
 
-            $sensores[] = $sensor;
+            $sensores[] = $valorSensor;
         }
         return $sensores;
     }
@@ -108,25 +114,30 @@ class SensorDAO extends Conexao{
 
     }
 
-    public function listar_por_tipo($id, $user){
-        $query = 'select * from sensor_temp s INNER JOIN central c ON s.central = c.cod where tipo_sensor = :id and c.usuario = :user order by dt_hr asc';
+    public function listar_por_tipo($id, $central){
+        $query = "select c.cod, s.tipo_sensor, s.descricao, vt.id as 'id_valor', vt.sensor as 'id_sensor', vt.valor, vt.dt_hr  from central c inner join sensor s on c.cod = s.central inner join valor_sensor_temp vt on s.id = vt.sensor where c.cod = :central and s.tipo_sensor = :id order by dt_hr asc";
         $stmt = $this->conectar()->prepare($query);
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':user', $user);
+        $stmt->bindValue(':central', $central);
         $stmt->execute();
-
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        
         $sensores = array();
-        $tiposensorDAO = new SensorDAO();
+        
+        $tiposensorDAO = new sensorDAO();
+        $centralDAO = new CentralDAO();
 
         foreach($result as $id => $objeto){
             $tipo = $tiposensorDAO->tipos_sensor($objeto->tipo_sensor);
-            $sensor = new Sensor($tipo, $objeto->central, $objeto->descricao, $objeto->valor, $objeto->dt_hr);
-            $sensor->__set('id', $objeto->id);
+            $central  = $centralDAO->pesquisarID($objeto->cod);
+            $sensor = new Sensor($tipo, $central, $objeto->descricao);
+            $sensor->__set('id', $objeto->id_sensor);
+            $valorSensor = new ValorSensor($sensor,$objeto->valor, $objeto->dt_hr);
+            $valorSensor->__set('id', $objeto->id_valor);
+           
 
-            $sensores[] = $sensor;
+            $sensores[] = $valorSensor;
         }
-
         return $sensores;
     }
 }

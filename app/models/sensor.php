@@ -1,19 +1,16 @@
 <?php
 include('tiposensor.php');
+
 class Sensor{
     private int $id;
     private TipoSensor $tipo_sensor;
     private String $descricao;
-    private String $valor;
-    private String $dt_hr;
 
-    public function __construct($tipo_sensor,$central,$descricao,$valor, $dt_hr)
+    public function __construct($tipo_sensor,$central,$descricao)
     {
         $this->tipo_sensor = $tipo_sensor;
         $this->central = $central;
-        $this->valor = $valor;
         $this->descricao = $descricao;
-        $this->dt_hr = $dt_hr;
     }
 
     public function __get($atributo){

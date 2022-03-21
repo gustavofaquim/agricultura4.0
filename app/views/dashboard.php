@@ -12,15 +12,13 @@ error_reporting(E_ALL);
 
 
 if(isset($_GET['c'])){
-   $central = $_GET['c'];
-  
-  $sensorC = new SensorController();
-  $sensores = $sensorC->sensores_dashboard($central);
-  $centralC = new CentralController();
-  $central = $centralC->pesquisaId($central);
+   $_SESSION['central_cod'] = $_GET['c'];
 }
-
-
+$central = $_SESSION['central_cod'];
+$sensorC = new SensorController();
+$sensores = $sensorC->sensores_dashboard($central);
+$centralC = new CentralController();
+$central = $centralC->pesquisaId($central);
 
 
 if(isset($_GET['retornos'])){
@@ -44,19 +42,19 @@ if(isset($_GET['retornos'])){
             <?php 
             if (is_array($sensores) || is_object($sensores)){
                 foreach($sensores as $id =>$sensor){
-                    $color = $sensor->__get('tipo_sensor')->__get('color');
+                    $color = $sensor->__get('sensor')->__get('tipo_sensor')->__get('color');
                     echo"<div class='col-xl-2 col-md-6 mb-4' id='sensores'>";
                         echo"<div class='card border-left-".$color." shadow h-100 py-2'>";
                             echo"<div class='card-body'>";
                                 echo"<div class='row no-gutters align-items-center'>";
                                 echo"<div class='col mr-2'>";
                                 //echo"<a href='?i=".$sensor['link']."'>";
-                                echo"<a href='?i=dados&tp=".$sensor->__get('tipo_sensor')->__get('id')."'>";
-                                                echo "<div id='sensor-".$sensor->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('tipo_sensor')->__get('tipo')."</div>";
-                                                echo "<div id='valor-".$sensor->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
+                                echo"<a href='?i=dados&tp=".$sensor->__get('sensor')->__get('tipo_sensor')->__get('id')."'>";
+                                                echo "<div id='sensor-".$sensor->__get('sensor')->__get('tipo_sensor')->__get('tipo')."' class='text-xs font-weight-bold text-".$color." text-uppercase mb-1'>".$sensor->__get('sensor')->__get('tipo_sensor')->__get('tipo')."</div>";
+                                                echo "<div id='valor-".$sensor->__get('sensor')->__get('tipo_sensor')->__get('tipo')."'class='h5 mb-0 font-weight-bold text-gray-800'>".$sensor->__get('valor')."</div>";          
                                     echo"</a></div>";
                                     echo"<div class='col-auto'>";
-                                        echo"<i class='".$sensor->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
+                                        echo"<i class='".$sensor->__get('sensor')->__get('tipo_sensor')->__get('icon')." text-gray-300'></i>";
                                     echo"</div>";
                                 echo"</div>";
                             echo"</div>";
@@ -76,8 +74,8 @@ if(isset($_GET['retornos'])){
         if (is_array($sensores) || is_object($sensores)){
             foreach($sensores as $id =>$sensor){
                // include_once(__DIR__.'/../graficos/grafico_'.$sensor->__get('tipo_sensor')->__get('tipo').".php");
-                $color = $sensor->__get('tipo_sensor')->__get('color');
-                echo "<h4 class='text-uppercase titulo font-weight-bold bg-".$color."'>".$sensor->__get('tipo_sensor')->__get('tipo')."</h4>";
+                $color = $sensor->__get('sensor')->__get('tipo_sensor')->__get('color');
+                echo "<h4 class='text-uppercase titulo font-weight-bold bg-".$color."'>".$sensor->__get('sensor')->__get('tipo_sensor')->__get('tipo')."</h4>";
                 echo "<div class='container-fluid sensores id='card-page-sensores' > ";
                     echo "<div class='container text-justify'>";
                         
@@ -91,7 +89,7 @@ if(isset($_GET['retornos'])){
                               //<!-- Card Body -->
                               echo "<div class='card-body'>";
                                   echo "<div class='chart-pie pt-4'>";
-                                      echo "<div id='grafico-".$sensor->__get('tipo_sensor')->__get('tipo')."'></div>";
+                                      echo "<div id='grafico-".$sensor->__get('sensor')->__get('tipo_sensor')->__get('tipo')."'></div>";
                                   echo"</div>";
                               echo"</div>";
                           echo"</div>";
@@ -105,12 +103,13 @@ if(isset($_GET['retornos'])){
                 echo "</div>";
             }
         }
-    
+
     ?>
 
 
-                    
 
+                    
+<!-- TEMPERATURA -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
       google.charts.load('current', {'packages':['line']});
@@ -124,7 +123,7 @@ if(isset($_GET['retornos'])){
      
     
     
-      /*data.addRows([
+      data.addRows([
         [1,  37.8],
         [2,  30.9],
         [3,  100.0],
@@ -139,23 +138,12 @@ if(isset($_GET['retornos'])){
         [12,  6.6],
         [13,  4.8],
         [14,  4.2]
-      ]);*/
-
-      data.addRows([
-        <?php 
-
-            $sensorCT = new SensorController();
-            $sensoresG = $sensorCT->listar_por_tipo(1);
-          
-
-            $cont = 0;
-            foreach($sensoresG as $id => $sensorG){
-                echo "[".substr($sensorG->__get('dt_hr'),8,2).", ".$sensorG->__get('valor')."],";     
-        }   
-            
-            
-        ?>
       ]);
+
+
+      
+
+      
 
       var options = {
         legend: { position: 'bottom' },
@@ -164,13 +152,15 @@ if(isset($_GET['retornos'])){
           }
       };
 
-      var chart = new google.charts.Line(document.getElementById('grafico-<?php echo $sensorG->__get('tipo_sensor')->__get('tipo') ?>'));
+      var chart = new google.charts.Line(document.getElementById('grafico-umidade'));
 
       chart.draw(data, google.charts.Line.convertOptions(options));
     }
   </script>
 
 
+
+<!-- TEMPERATURA -->
 <script type="text/javascript">
       google.charts.load('current', {'packages':['line']});
       google.charts.setOnLoadCallback(drawChart);
@@ -198,7 +188,7 @@ if(isset($_GET['retornos'])){
           }
       };
 
-      var chart = new google.charts.Line(document.getElementById('grafico-<?php echo $sensorG->__get('tipo_sensor')->__get('tipo') ?>'));
+      var chart = new google.charts.Line(document.getElementById('grafico-<?php echo $sensorG->__get('sensor')->__get('tipo_sensor')->__get('tipo') ?>'));
 
       chart.draw(data, google.charts.Line.convertOptions(options));
     }
@@ -234,7 +224,7 @@ if(isset($_GET['retornos'])){
           }
       };
 
-      var chart = new google.charts.Line(document.getElementById('grafico-<?php echo $sensorG->__get('tipo_sensor')->__get('tipo') ?>'));
+      var chart = new google.charts.Line(document.getElementById('grafico-<?php echo $sensorG->__get('sensor')->__get('tipo_sensor')->__get('tipo') ?>'));
 
       chart.draw(data, google.charts.Line.convertOptions(options));
     }

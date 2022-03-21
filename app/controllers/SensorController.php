@@ -45,20 +45,18 @@ class SensorController{
         
         
         foreach($lista as $id=>$list){
-            $sensores[$list->__get('tipo_sensor')->__get('tipo')] = $list;
+            $sensores[$list->__get('sensor')->__get('tipo_sensor')->__get('tipo')] = $list;
         }
 
-        //echo "<pre>";
-        //print_r($sensores);
-        //echo "</pre>";
+        if(isset($sensores)){
+            return $sensores;
+        }
         
-        return $sensores;
     }
 
-    public function listar_por_tipo($id_tipo){
+    public function listar_por_tipo($id_tipo,$central){
         $sensorDAO = new SensorDAO();
-    
-        $lista = $sensorDAO->listar_por_tipo($id_tipo, $_SESSION['usuario']);
+        $lista = $sensorDAO->listar_por_tipo($id_tipo, $central);
         return $lista;
     }
 

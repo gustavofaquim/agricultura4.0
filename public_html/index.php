@@ -11,6 +11,7 @@ require_once("../app/models/sensor.php");
 require_once('../app/models/Usuario.php');
 require_once('../app/controllers/UsuarioController.php');
 require_once('../app/dao/CentralDAO.php');
+require_once('../app/models/ValorSensor.php');
 require_once('../app/controllers/CentralController.php');
 
 
