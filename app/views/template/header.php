@@ -42,14 +42,14 @@
                 <a class="nav-link" href="?">ÍNICIO <span class="sr-only">(Página atual)</span></a>
             </li>
 
-            <?php
-                $sensorC = new SensorController();
+          <?php
+               /* $sensorC = new SensorController();
                 $tiposensor = $sensorC->tipos_sensores();
                 //$sensores = $sensorC->sensores_dashboard();   
                 foreach($tiposensor as $id =>$tipo){
                     echo"<li class='nav-item menu-item'><a class='nav-link' href='?i=dados&tp=".$tipo->__get('id')."'>  <span class='text-uppercase'>".$tipo->__get('tipo')." <i class='".$tipo->__get('icon')."'></i></span></a> </li>";
-                }
-            ?>
+                } */
+            ?> 
             <li class="nav-item menu-item">
                 <a class="nav-link" href="?i=sair">Sair</a>
             </li>

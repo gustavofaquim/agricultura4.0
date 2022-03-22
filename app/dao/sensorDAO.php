@@ -14,14 +14,14 @@ class SensorDAO extends Conexao{
 
 
     //Salvando no banco de dados
-    public function salvar(Sensor $sensor){
-        $query = "insert into sensor_temp (tipo_sensor, central, descricao, valor, dt_hr) values (:tipo, :central, :desc,:valor, :dt_hr);";
+    public function salvar($id, $valor, $dt_hr){
+        $query = "insert into valor_sensor_temp (sensor, valor, dt_hr) values (:sensor, :valor, :dt_hr);";
         $stmt = $this->conectar()->prepare($query);
-        $stmt->bindValue(":tipo", $sensor->__get('tipo_sensor'));
-        $stmt->bindValue(":central", $sensor->__get('central'));
-        $stmt->bindValue(":desc", $sensor->__get('descricao'));
-        $stmt->bindValue(":valor", $sensor->__get('valor'));
-        $stmt->bindValue(":dt_hr", $sensor->__get('dt_hr'));
+        //$stmt->bindValue(":tipo", );
+        $stmt->bindValue(":sensor", $id );
+        //$stmt->bindValue(":valor", );
+        $stmt->bindValue(":valor", $valor);
+        $stmt->bindValue(":dt_hr", $dt_hr);
       
         if($stmt->execute() == False){
             echo"<pre>";
@@ -29,9 +29,9 @@ class SensorDAO extends Conexao{
             echo"</pre>";
         }
 
-        $sensor->__set('id', $this->conectar()->lastInsertId());
+        //$sensor->__set('id', $this->conectar()->lastInsertId());
 
-        return $sensor;
+        return True;
     }
 
 
@@ -115,7 +115,7 @@ class SensorDAO extends Conexao{
     }
 
     public function listar_por_tipo($id, $central){
-        $query = "select c.cod, s.tipo_sensor, s.descricao, vt.id as 'id_valor', vt.sensor as 'id_sensor', vt.valor, vt.dt_hr  from central c inner join sensor s on c.cod = s.central inner join valor_sensor_temp vt on s.id = vt.sensor where c.cod = :central and s.tipo_sensor = :id order by dt_hr asc";
+        $query = "select c.cod, s.tipo_sensor, s.descricao, vt.id as 'id_valor', vt.sensor as 'id_sensor', vt.valor, vt.dt_hr from central c inner join sensor s on c.cod = s.central inner join valor_sensor_temp vt on s.id = vt.sensor where c.cod = :central and s.tipo_sensor = :id order by dt_hr asc LIMIT 5";
         $stmt = $this->conectar()->prepare($query);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':central', $central);

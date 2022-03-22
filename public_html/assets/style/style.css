@@ -3,6 +3,7 @@ a{
 }
 
 
+
 .cabecalho-tabela{
     background-color:  #1cc88a!important;
     color: #FFFFFF;
@@ -30,6 +31,15 @@ a{
     margin-top: 30px;
 }
 
+#card-meteorologicos{
+    background-color: #F8F9FC;
+      
+}
+
+#card-solo{
+    background-color: #eaebed;
+}
+
 #card-geral a{
     text-decoration: none !important;
 }
@@ -53,17 +63,30 @@ a{
     padding: 40px;
 }
 
-.titulo{
-    color: #FFFFFF;
+
+.titulo-meteorologico{
     margin-bottom: 0px;
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    background-color: #F8F9FC;
 }
+
+.titulo-solo{
+    margin-bottom: 0px;
+    padding: 20px;
+    text-align: center;
+    background-color: #eaebed;
+}
+
+
+
 
 #centrais{
     display: block;
     float: left;
     border: 1px solid red;
 }
+
+
 
 

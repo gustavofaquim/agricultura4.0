@@ -38,6 +38,37 @@ if(isset($_GET['tp'])){
                 //echo "<a href='?i=exporta&tp=".$sensores[0]->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
                 echo "<a href='../xls.php?tp=".$sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('id')."' target='_blank'>Exportar para o Excel</a>";
                 echo"</div>";
+
+                
+
+                //grafico
+                echo"<div class='row'>";
+
+                
+                $color = $sensor->__get('sensor')->__get('tipo_sensor')->__get('color');
+                echo "<div class='col-xl-8 col-lg-7' > ";
+                    echo "<div class='container text-justify'>";
+                        
+                 
+                    echo "<div class='col-xl-7 col-lg-6'>";
+                          echo "<div class='card shadow mb-4'>";
+                              echo "<div class='card-body'>";
+                                  echo "<div class='chart-pie pt-4'>";
+                                      echo "<div id='grafico-".$sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo')."'></div>";
+                                  echo"</div>";
+                              echo"</div>";
+                          echo"</div>";
+                      echo"</div>";
+                    
+                    echo "</div>";
+
+                echo "</div>";             
+        
+
+ 
+                echo"</div>";
+                        
+
         } // Fim IF   
         
 }
@@ -45,8 +76,46 @@ else{
         echo '<div class="d-sm-flex align-items-center justify-content-between mb-4"> <h1 class="h3 mb-0 text-gray-800">Nenhum sensor identificado</h1></div>';
 }
 ?>
-      
 
+<?php 
+         
+?>
+
+
+      
+<!-- TEMPERATURA -->
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Dia');
+      data.addColumn('number', 'Temperatura');
+
+      data.addRows([
+        <?php 
+            $sensorCT = new SensorController();
+            $sensoresG = $sensorCT->listar_por_tipo(3,$_SESSION['central_cod']);
+            foreach($sensoresG as $id => $sensorG){
+                echo "[".substr($sensorG->__get('dt_hr'),9,2).", ".$sensorG->__get('valor')."],";           
+        }    
+        ?>
+      ]);
+
+      var options = {
+        legend: { position: 'bottom' },
+        series: {
+            0: { color: '#e74a3b' },
+          }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('grafico-<?php echo $sensorG->__get('sensor')->__get('tipo_sensor')->__get('tipo') ?>'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+  </script>
 
 
 <!-- Content Row 

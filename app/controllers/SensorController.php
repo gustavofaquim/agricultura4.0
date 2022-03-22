@@ -60,14 +60,14 @@ class SensorController{
         return $lista;
     }
 
-    public function cadastrar(Sensor $sensor){
+    public function cadastrar($id, $valor, $dt_hr){
         //echo "<pre>";
         //var_dump($sensor);
         //echo "</pre>";
         //$this->sensor = new Sensor($_GET['tipo'],$_GET['desc'],$_GET['valor']);
         $sensorDAO = new SensorDAO();
         
-        $sensorDAO->salvar($sensor);
+        $sensorDAO->salvar($id, $valor, $dt_hr);
         
         header("Location: index.php");
         die();
