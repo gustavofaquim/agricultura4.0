@@ -13,6 +13,18 @@ if(isset($_GET['tp'])){
         $sensorC = new SensorController();
         $central = $_SESSION['central_cod'];
         $sensores = $sensorC->listar_por_tipo($tp,$central);
+        $cor = '';
+
+        if($sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo') === 'umidade'){    
+                $cor = '#1cc88a';       
+        }
+        else if($sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo') === 'temperatura'){
+                $cor = '#e74a3b';
+        }
+        else if($sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo') ==='solo'){
+                $cor = '#36b9cc';
+        }
+        
         
         if(!empty($sensores)){
                 $color = $sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('color');
@@ -77,11 +89,9 @@ else{
 }
 ?>
 
-<?php 
-         
-?>
 
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       
 <!-- TEMPERATURA -->
 <script type="text/javascript">
@@ -92,22 +102,23 @@ else{
 
       var data = new google.visualization.DataTable();
       data.addColumn('number', 'Dia');
-      data.addColumn('number', 'Temperatura');
+      data.addColumn('number', <?php $sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo') ?>);
 
       data.addRows([
         <?php 
             $sensorCT = new SensorController();
-            $sensoresG = $sensorCT->listar_por_tipo(3,$_SESSION['central_cod']);
+            $sensoresG = $sensorCT->listar_por_tipo($tp,$_SESSION['central_cod']);
             foreach($sensoresG as $id => $sensorG){
-                echo "[".substr($sensorG->__get('dt_hr'),9,2).", ".$sensorG->__get('valor')."],";           
+                echo "[".substr($sensorG->__get('dt_hr'),9,2).", ".$sensorG->__get('valor')."],";       
         }    
         ?>
       ]);
 
+    
       var options = {
         legend: { position: 'bottom' },
         series: {
-            0: { color: '#e74a3b' },
+            0: { color: '<?php echo $cor ?>' },
           }
       };
 

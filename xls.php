@@ -37,31 +37,32 @@ $arquivo = 'planilha.xls';
 
 if(isset($_GET['tp'])){
     $tp = $_GET['tp']; 
-    $central = $_SESSION['central_cod'];
 
     $sensorC = new SensorController();
     $central = $_SESSION['central_cod'];
     $sensores = $sensorC->listar_por_tipo($tp,$central);
+    $media = 0;
 
 // Criamos uma tabela HTML com o formato da planilha
 
 $table = " ";
 $table .= "<table border='0'>";
-$table .= "<td colspan='3'>".$sensores[0]->__get('sensor')->__get('tipo_sensor')->__get('tipo')."</td>";
-$table .= "<tr bgcolor='#D3D3D3' width='400px'>";
+$table .= "<tr>";
+$table .= "<td width='150px'><b>Data</b></td>";
 $table .= "<td width='100px'><b>Sensor</b></td>";
 $table .= "<td width='50px'><b>Valor</b></td>";
-$table .= "<td width='150px'><b>Data</b></td>";
 $table .= "</tr>";
 $table .= "<tr>";
 foreach($sensores as $id => $sensor){
     $table.= "<tr>";
+    $table .= "<td>".$sensor->__get('dt_hr')."</td>";
     $table .= "<td>".$sensor->__get('sensor')->__get('descricao')."</td>";
     $table .= "<td>".$sensor->__get('valor')."</td>";
-    $table .= "<td>".$sensor->__get('dt_hr')."</td>"; 
-    $table .= "</tr>"; 
+    $table .= "</tr>";
+    $media +=  $sensor->__get('valor');
 }
-
+$media = $media / ($id +1);
+$table .= "<td colspan='3'> Media: ".$media."</td>";
 $table .= "</tr>";
 $table .= "</table>";
 
