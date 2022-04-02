@@ -1,10 +1,10 @@
 <?php
 include_once('sensor.php');
 class ValorSensor{
-    private int $id;
+    /*private int $id;
     private Sensor $sensor;
     private String $valor;
-    private String $dt_hr;
+    private String $dt_hr;*/
 
     public function __construct($sensor, $valor, $dt_hr)
     {

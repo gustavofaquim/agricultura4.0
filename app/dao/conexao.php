@@ -1,15 +1,15 @@
 <?php
 
 class Conexao{
-  private $host = 'localhost'; 
+  /*private $host = 'localhost'; 
   private $db = 'agricultura';
   private $usuario = 'gustavo'; 
-  private $senha = '123456789'; 
+  private $senha = '123456789'; */
 
-  /*private $host = 'localhost'; 
-  private $db = 'id18375770_agricultura';
-  private $usuario = 'id18375770_ifagricultura';
-  private $senha = '<GOh~xaK2@|GT{l)';*/ 
+  private $host = 'localhost'; 
+  private $db = 'adrianob_agricultura40';
+  private $usuario = 'adrianob_agricultura';
+  private $senha = '@gricultur@10'; 
 
 
   public function conectar(){

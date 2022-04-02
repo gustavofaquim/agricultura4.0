@@ -2,9 +2,9 @@
 include('tiposensor.php');
 
 class Sensor{
-    private int $id;
-    private TipoSensor $tipo_sensor;
-    private String $descricao;
+    //private int $id;
+    //private TipoSensor $tipo_sensor;
+    //private String $descricao;
 
     public function __construct($tipo_sensor,$central,$descricao)
     {

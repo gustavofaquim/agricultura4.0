@@ -8,10 +8,10 @@ session_start();
 
 
 $path = $_SERVER['DOCUMENT_ROOT'];
-require_once($path.'/agricultura4.0/app/dao/conexao.php');
-require_once($path.'/agricultura4.0/app/models/Usuario.php');
-require_once($path.'/agricultura4.0/app/controllers/UsuarioController.php');
-require_once($path.'/agricultura4.0/app/dao/UsuarioDAO.php');
+require_once($path.'/agricultura/app/dao/conexao.php');
+require_once($path.'/agricultura/app/models/Usuario.php');
+require_once($path.'/agricultura/app/controllers/UsuarioController.php');
+require_once($path.'/agricultura/app/dao/UsuarioDAO.php');
 
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '' ;
 $senha = (isset($_POST['senha'])) ? $_POST['senha'] : '' ;

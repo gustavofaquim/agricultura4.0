@@ -15,10 +15,10 @@ error_reporting(E_ALL);
 
 
 
-require_once($path.'/agricultura4.0/app/models/Usuario.php');
-require_once($path.'/agricultura4.0/app/dao/conexao.php');
-require_once($path.'/agricultura4.0/app/dao/CentralDAO.php');
-require_once($path.'/agricultura4.0/app/controllers/CentralController.php');
+require_once($path.'/agricultura/app/models/Usuario.php');
+require_once($path.'/agricultura/app/dao/conexao.php');
+require_once($path.'/agricultura/app/dao/CentralDAO.php');
+require_once($path.'/agricultura/app/controllers/CentralController.php');
 //require_once($path.'/agricultura4.0/app/models/centra.php');
 
 session_start();
@@ -36,7 +36,7 @@ $centrais = $centralC->listar($_SESSION['usuario']);
             //echo "<a href='/agricultura4.0/public_html/?c=".$central->__get('cod')."'><div id='centrais'>".$central->__get('descricao')."</div></a>";
             echo"<div class='card shadow mb-4'>";
             echo"<div class='card-header py-3'>";
-                echo"<h6 class='m-0 font-weight-bold text-primary'><a href='/agricultura4.0/public_html/?c=".$central->__get('cod')."'>".$central->__get('descricao')."</a></h6>";
+                echo"<h6 class='m-0 font-weight-bold text-primary'><a href='/agricultura/public_html/?c=".$central->__get('cod')."'>".$central->__get('descricao')."</a></h6>";
             echo"</div>";
             echo"</div>";
         }
