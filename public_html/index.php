@@ -71,7 +71,7 @@ if(isset($_GET['i'])){
       include '../app/views/pages/user/central.php';
       break;
     case 'sair';
-      include '../app/views/pages/user/logout.php';
+      include '../app/views/pages/logout.php';
       break;
     case 'dashboard';
       include '../app/views/pages/user/logout.php';

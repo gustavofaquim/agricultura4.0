@@ -92,30 +92,46 @@ insert into central(cod,descricao, usuario) values
 ('fjdh8343847843m7','IF Goiano', 'teste02'),
 ('212uuy1uyuycxcct','IFG', 'teste01');
 
+
 INSERT INTO tipo_sensor (id, tipo, icon, color) VALUES
 (1, 'umidade', 'fas fa-tint', 'success'),
-(2, 'pluviometrico', 'fas fa-cloud-rain', 'primary'),
-(3, 'temperatura ', 'fas   fa-temperature-low', 'danger'),
-(4, 'ar', 'fas fa-wind', 'info');
+(3, 'temperatura', 'fas   fa-temperature-low', 'danger'),
+(5, 'solo', 'fa-solid fa-leaf', 'info');
+
+INSERT INTO sensor (id, tipo_sensor, central, descricao) VALUES
+(1, 1, '203x898m92x8x93m', 'Sensor de Umidade 01'),
+(2, 3, '203x898m92x8x93m', 'Sensor de Temperatura'),
+(3, 1, 'fjdh8343847843m7', 'Sensor de Umidade 01'),
+(4, 5, '203x898m92x8x93m', 'Sensor de Umidade do Solo 01'),
+(5, 5, '203x898m92x8x93m', 'Sensor de Umidade do Solo 02'),
+(6, 5, '203x898m92x8x93m', 'Sensor de Umidade do Solo 03'),
+(7, 5, '203x898m92x8x93m', 'Sensor de Umidade do Solo 04'),
+(8, 5, '203x898m92x8x93m', 'Sensor de Umidade do Solo 05');
 
 
-insert into sensor(tipo_sensor, central, descricao) values
-(1,'203x898m92x8x93m','Sensor de Umidade 01'),
-(3,'203x898m92x8x93m','Sensor de Temperatura'),
-(1,'fjdh8343847843m7','Sensor de Umidade 01');
 
-insert into valor_sensor_temp(sensor,valor,dt_hr) values
-(1, 90, '2022-02-05 12:40:20'),
-(1, 50, '2022-02-05 14:40:20'),
-(1, 90, '2022-02-05 17:57:20'),
-(1, 90, '2022-02-05 19:57:20'),
-(1, 90, '2022-02-05 21:57:20'),
-(2, 37, '2022-02-05 12:40:20'),
-(2, 35, '2022-02-05 14:40:20'),
-(2, 36, '2022-02-05 17:57:20'),
-(2, 28, '2022-02-05 19:57:20'),
-(2, 26, '2022-02-05 21:57:20'),
-(3, 40, '2022-02-05 12:57:20');
+
+INSERT INTO valor_sensor_temp (id, sensor, valor, dt_hr) VALUES
+(1, 1, 90, '2022-02-05 12:40:20'),
+(2, 1, 50, '2022-02-05 14:40:20'),
+(3, 1, 90, '2022-02-05 17:57:20'),
+(4, 1, 90, '2022-02-05 19:57:20'),
+(5, 1, 90, '2022-02-05 21:57:20'),
+(6, 2, 37, '2022-02-05 12:40:20'),
+(7, 2, 35, '2022-02-05 14:40:20'),
+(8, 2, 36, '2022-02-05 17:57:20'),
+(9, 2, 28, '2022-02-05 19:57:20'),
+(10, 2, 26, '2022-02-05 21:57:20'),
+(11, 3, 40, '2022-02-05 12:57:20'),
+(12, 1, 60, '2022-03-21 19:24:13'),
+(13, 1, 30, '2022-03-20 19:24:46'),
+(14, 4, 10, '2022-03-21 21:32:34'),
+(15, 5, 15, '2022-03-21 21:32:53'),
+(16, 6, 32, '2022-03-21 21:32:53'),
+(17, 7, 4, '2022-03-21 21:33:18'),
+(18, 8, 12, '2022-03-21 21:33:18'),
+(19, 5, 20, '2022-03-21 10:18:21');
+
 
 
 
