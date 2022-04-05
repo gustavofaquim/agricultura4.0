@@ -33,14 +33,14 @@ if(isset($_GET['tp'])){
                 echo"<div class='container-fluid'> <br>";
                 echo"<table class='table table-striped' id='tabela'>";
                         echo"<thead class='bg-".$color."text-white'> <tr>";
-                                echo "<th scope='col'>SENSOR</th> <th scope='col'>VALOR</th> <th scope='col'>HORÁRIO</th> </tr> </thead>";
+                                echo "<th scope='col'>SENSOR</th> <th scope='col'>HORÀRIO</th> <th scope='col'>VALOR</th> </tr> </thead>";
                                 echo"<tbody> <tr>";
                                         
                                 foreach($sensores as $id => $sensor){
                                         echo "<tr>";
                                         echo "<td>".$sensor->__get('sensor')->__get('descricao')."</td>";
-                                        echo "<td>".$sensor->__get('valor')."</td>";
-                                        echo "<td>".$sensor->__get('dt_hr')."</td></tr>";                
+                                        echo "<td>".$sensor->__get('dt_hr')."</td>";                
+                                        echo "<td>".$sensor->__get('valor')."</td></tr>";
                                 }
                         
                                 echo"</tr>";

@@ -41,6 +41,9 @@
             <li class="nav-item menu-item">
                 <a class="nav-link" href="?">ÍNICIO <span class="sr-only">(Página atual)</span></a>
             </li>
+            <li class="nav-item menu-item">
+                <a class="nav-link" href="?i=dados_gerais">DADOS <span class="sr-only">(Página atual)</span></a>
+            </li>
 
           <?php
                /* $sensorC = new SensorController();

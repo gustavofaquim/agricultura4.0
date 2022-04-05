@@ -19,9 +19,9 @@ class SensorController{
         
     }
 
-    public function listar(){
+    public function listar($central){
         $sensorDAO = new SensorDAO();
-        $lista = $sensorDAO->listar();
+        $lista = $sensorDAO->listar($central);
         return $lista;
     }
 

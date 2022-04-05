@@ -32,16 +32,12 @@ require_once('app/controllers/CentralController.php');
 */
 
 // Definimos o nome do arquivo que será exportado
-$arquivo = 'planilha.xls';
+$arquivo = 'Dados_Gerais.xls';
 
-
-if(isset($_GET['tp'])){
-    $tp = $_GET['tp']; 
-
-    $sensorC = new SensorController();
-    $central = $_SESSION['central_cod'];
-    $sensores = $sensorC->listar_por_tipo($tp,$central);
-    $media = 0;
+$sensorC = new SensorController();
+$central = $_SESSION['central_cod'];
+$sensores = $sensorC->listar($central);
+$media = 0;
 
 // Criamos uma tabela HTML com o formato da planilha
 
@@ -105,7 +101,7 @@ header ("Content-Description: PHP Generated Data" );
 echo $table;
 $table = " ";
 exit;
-}
+
 
 ?>
 </body>

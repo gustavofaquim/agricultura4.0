@@ -49,6 +49,9 @@ if(isset($_GET['i'])){
     case 'dados':
       include '../app/views/pages/dados.php';
       break;
+    case 'dados_gerais':
+      include '../app/views/pages/dados_gerais.php';
+      break;
     case 'exportar':
       include '../app/views/pages/table.php';
       break;
